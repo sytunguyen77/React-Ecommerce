@@ -5,8 +5,8 @@
    top: 0;
    left: 0;
    width: 100%;
-   z-index: 98;
-   height: $header-height;
+   z-index: 90;
+   height: 100px;
    transition: height 0.3s ease;
 
    @include tablet {
