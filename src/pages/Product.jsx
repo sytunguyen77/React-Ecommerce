@@ -25,7 +25,7 @@ const Product = (props) => {
             </SectionBody>
          </Section>
          <Section>
-            <SectionTitle>Khám phá thêm</SectionTitle>
+            <SectionTitle>You May Like</SectionTitle>
             <SectionBody>
                <Grid col={4} mdCol={2} smCol={1} gap={20}>
                   {relatedProducts.map((item, index) => (

@@ -86,7 +86,7 @@ const HeroSliderItem = (props) => (
          <div className="hero-slider__item__info__btn">
             <Link to={props.item.path}>
                <Button backgroundColor={props.item.color} icon="bx bx-cart" animate={true}>
-                  xem chi tiết
+                  View Details
                </Button>
             </Link>
          </div>

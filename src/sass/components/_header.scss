@@ -1,27 +1,32 @@
 .header {
+   // General styles for the header
    background-color: $main-bg;
    position: fixed;
    top: 0;
    left: 0;
    width: 100%;
-   z-index: 99;
+   z-index: 98;
    height: $header-height;
    transition: height 0.3s ease;
 
    @include tablet {
+      // Styles for the header on tablet devices
       height: $header-tablet-height;
       box-shadow: $box-shadow;
    }
 
    @include mobile {
+      // Styles for the header on mobile devices
       height: $header-mobile-height;
    }
 
    .container {
+      // Styles for the container within the header
       height: 100%;
    }
 
    &.shrink {
+      // Styles for the header when it shrinks
       height: $header-shrink-height;
       box-shadow: $box-shadow;
       z-index: 100;
@@ -32,6 +37,7 @@
    }
 
    &__logo {
+      // Styles for the logo within the header
       @include flex(center, center);
       position: absolute;
       inset: 0;
@@ -47,11 +53,13 @@
    }
 
    &__menu {
+      // Styles for the menu within the header
       @include flex(center, space-between);
       height: 100%;
       font-size: 1.5rem;
 
       &__item ~ &__item {
+         // Styles for menu items
          margin-left: 39px;
 
          @include tablet {
@@ -64,21 +72,25 @@
       }
 
       &__item.active {
+         // Styles for the active menu item
          font-weight: 600;
          color: $main-color;
       }
 
       &__item:hover {
+         // Styles for the menu item on hover
          color: $main-color;
       }
 
       &__left,
       &__right {
+         // Styles for the left and right parts of the menu
          @include flex(center, center);
          height: 100%;
       }
 
       &__right {
+         // Styles for the right part of the menu
          font-size: 2.25rem;
 
          &__item {
@@ -95,13 +107,17 @@
       }
 
       &__right {
-         &__cart {
-            position: relative;
-            @include tablet {
-               z-index: -10000;
-            }
+         &__item {
+            cursor: pointer;
          }
+
+         &__cart {
+            // Styles for the cart icon in the right part of the menu
+            position: relative;
+         }
+
          &__count {
+            // Styles for the count indicator near the cart icon
             display: flex;
             justify-content: center;
             align-items: center;
@@ -127,10 +143,15 @@
 
       &__left {
          &__close {
+            // Styles for the close button in the left part of the menu
             display: none;
+            &:hover {
+               color: $main-color;
+            }
          }
 
          @include tablet {
+            // Styles for the left part of the menu on tablet devices
             flex-direction: column;
             background-color: $main-bg;
             position: absolute;
@@ -142,6 +163,8 @@
             padding-top: 30px;
             transform: translateX(-100%);
             transition: transform 0.5s ease;
+            cursor: pointer;
+            z-index: 1000;
 
             &.active {
                transform: translateX(0);
@@ -162,7 +185,12 @@
       }
 
       &__mobile-toggle {
+         // Styles for the menu toggle button on mobile devices
          display: none;
+         cursor: pointer;
+         &:hover {
+            color: $main-color;
+         }
 
          @include tablet {
             display: block;

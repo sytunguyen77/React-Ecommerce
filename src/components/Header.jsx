@@ -1,24 +1,29 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 // Importing the logo
 import logo from "../assets/images/Logo-4.png";
 
+import SearchModal from "./SearchModal";
+
+// Importing hooks from 'react-redux' for state management
+import { useSelector } from "react-redux";
+
 // Define main navigation menu
 const mainNav = [
    {
-      display: "Trang chủ",
+      display: "Home",
       path: "/",
    },
    {
-      display: "Sản phẩm",
+      display: "Product",
       path: "/catalog",
    },
    {
-      display: "Phụ kiện",
+      display: "Accessories",
       path: "/accessories",
    },
    {
-      display: "Liên hệ",
+      display: "Contact",
       path: "/contact",
    },
 ];
@@ -28,6 +33,19 @@ const Header = () => {
    // Get current route
    const { pathname } = useLocation();
    const activeNav = mainNav.findIndex((e) => e.path === pathname);
+
+   // Use Redux state to get cart items
+   const cartItems = useSelector((state) => state.cartItems.value);
+
+   // Calculate total number of items in the cart
+   const totalCartItems = cartItems.reduce((total, item) => total + Number(item.quantity), 0);
+
+   // Add or remove Search Modal
+   const [isOpen, setIsOpen] = useState(false);
+
+   const openSearch = () => {
+      setIsOpen(true);
+   };
 
    // Create reference to the header
    const headerRef = useRef(null);
@@ -104,14 +122,18 @@ const Header = () => {
                <div className="header__menu__right">
                   {/* Define right side menu items */}
                   {/* Search icon */}
-                  <div className="header__menu__item header__menu__right__item">
+                  <div
+                     className="header__menu__item header__menu__right__item header__menu__right__search"
+                     onClick={openSearch}
+                  >
                      <i className="bx bx-search"></i>
                   </div>
+                  <SearchModal isOpen={isOpen} setIsOpen={setIsOpen} />
                   {/* Shopping cart icon with a React Router Link to redirect users to the cart page when clicked */}
                   <div className="header__menu__item header__menu__right__item header__menu__right__cart">
                      <Link to="/cart">
                         <i className="bx bx-shopping-bag"></i>
-                        <span className="header__menu__right__count">1</span>
+                        <span className="header__menu__right__count">{totalCartItems}</span>
                      </Link>
                   </div>
                   {/* User icon */}

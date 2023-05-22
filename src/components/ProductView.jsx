@@ -120,7 +120,7 @@ const ProductView = (props) => {
             </div>
             {/* // Section for product description */}
             <div className={`product-description ${descriptionExpand ? "expand" : ""}`}>
-               <div className="product-description__title">Chi tiết sản phẩm</div>
+               <div className="product-description__title">Product details</div>
                {/* // Product description content */}
                <div
                   className="product_description__content"
@@ -129,7 +129,7 @@ const ProductView = (props) => {
                {/* // Toggle button for expanding or collapsing description */}
                <div className="product-description__toggle">
                   <Button size="sm" onClick={() => setDescriptionExpand(!descriptionExpand)}>
-                     {descriptionExpand ? "Thu gọn" : "Xem thêm"}
+                     {descriptionExpand ? "Collapse" : "See More"}
                   </Button>
                </div>
             </div>
@@ -144,7 +144,7 @@ const ProductView = (props) => {
             </div>
             {/* // Color selection section */}
             <div className="product__info__item">
-               <div className="product__info__item__title">Màu sắc</div>
+               <div className="product__info__item__title">Color</div>
                {/* // List of colors */}
                <div className="product__info__item__list">
                   {product.colors.map((item, index) => (
@@ -161,7 +161,7 @@ const ProductView = (props) => {
             </div>
             {/* // Size selection section */}
             <div className="product__info__item">
-               <div className="product__info__item__title">Kích cỡ</div>
+               <div className="product__info__item__title">Size</div>
                {/* // List of sizes */}
                <div className="product__info__item__list">
                   {product.size.map((item, index) => (
@@ -178,7 +178,7 @@ const ProductView = (props) => {
             </div>
             {/* // Quantity selection section */}
             <div className="product__info__item">
-               <div className="product__info__item__title">Số lượng</div>
+               <div className="product__info__item__title">Quantity</div>
                {/* // Quantity input and controls */}
                <div className="product__info__item__quantity">
                   {/* // Decrease quantity button */}
@@ -195,13 +195,13 @@ const ProductView = (props) => {
             </div>
             {/* // Buttons to add to cart and buy now */}
             <div className="product__info__item">
-               <Button onClick={() => addToCart()}>thêm vào giỏ</Button>
-               <Button onClick={() => goToCart()}>mua ngay</Button>
+               <Button onClick={() => addToCart()}>Add To Bag</Button>
+               <Button onClick={() => goToCart()}>Buy Now</Button>
             </div>
          </div>
          {/* // Product description for mobile */}
          <div className={`product-description  mobile ${descriptionExpand ? "expand" : ""}`}>
-            <div className="product-description__title">Chi tiết sản phẩm</div>
+            <div className="product-description__title">Product Details</div>
             {/* // Product description content */}
             <div
                className="product_description__content"
@@ -210,7 +210,7 @@ const ProductView = (props) => {
             {/* // Toggle button for expanding or collapsing description */}
             <div className="product-description__toggle">
                <Button size="sm" onClick={() => setDescriptionExpand(!descriptionExpand)}>
-                  {descriptionExpand ? "Thu gọn" : "Xem thêm"}
+                  {descriptionExpand ? "Collapse" : "See More"}
                </Button>
             </div>
          </div>

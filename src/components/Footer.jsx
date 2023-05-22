@@ -8,38 +8,38 @@ import logo from "../assets/images/Logo-2.png";
 
 const footerAboutLinks = [
    {
-      display: "Giới thiệu",
+      display: "Introduction",
       path: "/about",
    },
    {
-      display: "Liên hệ",
+      display: "Contact",
       path: "/about",
    },
    {
-      display: "Tuyển dụng",
+      display: "Recruit",
       path: "/about",
    },
    {
-      display: "Tin tức",
+      display: "News",
       path: "/about",
    },
    {
-      display: "Hệ thống cửa hàng",
+      display: "Shop System",
       path: "/about",
    },
 ];
 
 const footerCustomerLinks = [
    {
-      display: "Chính sách đổi trả",
+      display: "Return Policy",
       path: "/about",
    },
    {
-      display: "Chính sách bảo hành",
+      display: "Warranty Policy",
       path: "/about",
    },
    {
-      display: "Chính sách hoàn tiền",
+      display: "Refund Policy",
       path: "/about",
    },
 ];
@@ -49,21 +49,21 @@ const Footer = () => {
          <div className="container">
             <Grid col={4} mdCol={2} smCol={1} gap={10}>
                <div>
-                  <div className="footer__title">Tổng đài hỗ trợ</div>
+                  <div className="footer__title">Support Center</div>
                   <div className="footer__content">
                      <p>
-                        Liên hệ đặt hàng <strong>0123456789</strong>
+                        Contact to order <strong>0123456789</strong>
                      </p>
                      <p>
-                        Thắc mắc đơn hàng <strong>0123456789</strong>
+                        Order issues <strong>0123456789</strong>
                      </p>
                      <p>
-                        Góp ý, khiếu nại <strong>0123456789</strong>
+                        Comments and Complaints <strong>0123456789</strong>
                      </p>
                   </div>
                </div>
                <div>
-                  <div className="footer__title">Về Yolo</div>
+                  <div className="footer__title">About Tomo</div>
                   <div className="footer__content">
                      {footerAboutLinks.map((item, index) => (
                         <p key={index}>
@@ -73,7 +73,7 @@ const Footer = () => {
                   </div>
                </div>
                <div>
-                  <div className="footer__title">Chăm sóc khách hàng</div>
+                  <div className="footer__title">Customer Care</div>
                   <div className="footer__content">
                      {footerCustomerLinks.map((item, index) => (
                         <p key={index}>
@@ -89,8 +89,9 @@ const Footer = () => {
                      </Link>
                   </p>
                   <p>
-                     Hướng đến mục tiêu mang lại niềm vui ăn mặc mới mỗi ngày cho hàng triệu người tiêu dùng
-                     Việt. Hãy cùng Yolo hướng đến một cuộc sống năng động, tích cực hơn.
+                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum quod ipsum adipisci
+                     nulla laborum animi commodi. Iure inventore expedita dolorem dolores debitis, repudiandae
+                     eaque alias. Optio veritatis at labore aut.
                   </p>
                </div>
             </Grid>
