@@ -45,19 +45,18 @@ const CartItem = (props) => {
       dispatch(removeItem(item));
    };
 
- 
    return (
       <div className="cart__item" ref={itemRef}>
          {/* Item image section */}
          <div className="cart__item__image">
-            <img src={item.product.image01} alt="" />
+            <img src={item.product?.image01} alt="" />
          </div>
          {/* Item info section */}
          <div className="cart__item__info">
             {/*  Item name section */}
             <div className="cart__item__info__name">
                <Link to={`/catalog/${item.slug}`}>
-                  {`${item.product.title} - ${item.color} - ${item.size}`}
+                  {`${item.product?.title} - ${item.color} - ${item.size}`}
                </Link>
             </div>
             {/*  Item price section */}

@@ -26,11 +26,10 @@ const ProductCard = (props) => {
             <h3 className="product-card__name">{props.name}</h3>
             {/* Product price section */}
             <div className="product-card__price">
-               {/* Price formatted with commas */}
-               {numberWithCommas(props.price)}
+               {/* Price formatted with commas */}${props.price}
                <span className="product-card__price__old">
                   {/* Old price hard-coded (consider updating or using a prop) */}
-                  <del>{numberWithCommas(399000)}</del>
+                  <del>${numberWithCommas(399000)}</del>
                </span>
             </div>
          </Link>
