@@ -4,10 +4,6 @@ const colors = [
       color: "white",
    },
    {
-      display: "Pink",
-      color: "pink",
-   },
-   {
       display: "Black",
       color: "black",
    },
@@ -16,8 +12,8 @@ const colors = [
       color: "yellow",
    },
    {
-      display: "Orange",
-      color: "orange",
+      display: "Red",
+      color: "red",
    },
    {
       display: "Blue",
