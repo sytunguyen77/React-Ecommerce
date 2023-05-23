@@ -1,8 +1,8 @@
 const policy = [
    {
       name: "Free Shipping",
-      description: "Free shipping with orders > 239K",
-      icon: "bx bx-shopping-bag",
+      description: "Free shipping for orders over $99",
+      icon: "bx bxs-package",
    },
    {
       name: "Payment COD",
