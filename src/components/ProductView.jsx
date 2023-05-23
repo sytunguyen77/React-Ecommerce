@@ -11,7 +11,7 @@ import { withRouter } from "react-router";
 // Utility components
 import Button from "./Button";
 import numberWithCommas from "../utils/numberWithCommas";
-import payment from "../assets/images/payment.jpg";
+import payment from "../assets/images/payment.png";
 
 // ProductView component
 const ProductView = (props) => {
@@ -195,7 +195,7 @@ const ProductView = (props) => {
                </div>
             </div>
             {/* // Payment image selection section */}
-            <div className="product__info__item__payment__image">
+            <div className="product__info__item__payment">
                <img src={payment} alt="" />
             </div>
             {/* // Buttons to add to cart and buy now */}

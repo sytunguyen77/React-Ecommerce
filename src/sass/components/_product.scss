@@ -60,6 +60,13 @@
       &__item {
          margin-top: 2rem;
 
+         &__payment {
+            img {
+               width: 300px;
+               transform: translate(-8px, 10px);
+            }
+         }
+
          &__price {
             color: $main-color;
             font-size: 2rem;
