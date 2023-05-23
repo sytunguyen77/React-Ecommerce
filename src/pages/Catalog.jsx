@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import queryString from "query-string";
 
 import Helmet from "../components/Helmet";
 import CheckBox from "../components/CheckBox";
@@ -11,6 +13,11 @@ import Button from "../components/Button";
 import InfinityList from "../components/InfinityList";
 
 const Catalog = () => {
+   // Get history to manipulate URL
+   const location = useLocation();
+   const searchParams = queryString.parse(location.search);
+   const searchQuery = searchParams.search || "";
+
    // ================================
    // INITIAL STATES
    // ================================
@@ -20,11 +27,22 @@ const Catalog = () => {
       size: [],
    };
 
-   const productList = productData.getAllProducts();
+   const [filter, setFilter] = useState(initFilter);
+
+   const [productList, setProductList] = useState(productData.getAllProducts());
 
    const [products, setProducts] = useState(productList);
 
-   const [filter, setFilter] = useState(initFilter);
+   useEffect(() => {
+      let allProducts = productData.getAllProducts();
+
+      if (searchQuery.length > 0) {
+         allProducts = allProducts.filter((e) => e.title.toLowerCase().includes(searchQuery.toLowerCase()));
+      }
+
+      setProductList(allProducts);
+      setProducts(allProducts);
+   }, [searchQuery]);
 
    // ================================
    // FILTER SELECT FUNCTION
@@ -65,7 +83,9 @@ const Catalog = () => {
    // ================================
    // CLEAR FILTER FUNCTION
    // ================================
-   const clearFilter = () => setFilter(initFilter);
+   const clearFilter = () => {
+      setFilter(initFilter);
+   };
 
    // ================================
    // UPDATING PRODUCTS FUNCTION
@@ -96,7 +116,7 @@ const Catalog = () => {
 
    useEffect(() => {
       updateProducts();
-   }, [updateProducts]);
+   }, [updateProducts, productList]);
 
    const filterRef = useRef(null);
 
@@ -122,7 +142,7 @@ const Catalog = () => {
 
                {/* Category filter section */}
                <div className="catalog__filter__widget">
-                  <div className="catalog__filter__widget__title">danh mục sản phẩm</div>
+                  <div className="catalog__filter__widget__title">Category</div>
                   <div className="catalog__filter__widget__content">
                      {/* Mapping over category data to generate checkboxes */}
                      {category.map((item, index) => (
@@ -139,7 +159,7 @@ const Catalog = () => {
 
                {/* Color filter section */}
                <div className="catalog__filter__widget">
-                  <div className="catalog__filter__widget__title">màu sắc</div>
+                  <div className="catalog__filter__widget__title">Colors</div>
                   <div className="catalog__filter__widget__content">
                      {/* Mapping over color data to generate checkboxes */}
                      {colors.map((item, index) => (
@@ -156,7 +176,7 @@ const Catalog = () => {
 
                {/* Size filter section */}
                <div className="catalog__filter__widget">
-                  <div className="catalog__filter__widget__title">kích cỡ</div>
+                  <div className="catalog__filter__widget__title">Size</div>
                   <div className="catalog__filter__widget__content">
                      {/* Mapping over size data to generate checkboxes */}
                      {size.map((item, index) => (
@@ -175,7 +195,7 @@ const Catalog = () => {
                <div className="catalog__filter__widget">
                   <div className="catalog__filter__widget__content">
                      <Button size="sm" onClick={clearFilter}>
-                        xóa bộ lọc
+                        Clear Filters
                      </Button>
                   </div>
                </div>
@@ -184,7 +204,7 @@ const Catalog = () => {
             {/* Button to toggle filter visibility */}
             <div className="catalog__filter__toggle">
                <Button size="sm" onClick={() => showHideFilter()}>
-                  bộ lọc
+                  Show Filters
                </Button>
             </div>
 
