@@ -54,16 +54,20 @@ const InfinityList = (props) => {
    return (
       <div ref={listRef}>
          <Grid col={3} mdCol={2} smCol={1} gap={20}>
-            {data.map((item, index) => (
-               <ProductCard
-                  key={index}
-                  img01={item.image01}
-                  img02={item.image02}
-                  name={item.title}
-                  price={Number(item.price)}
-                  slug={item.slug}
-               />
-            ))}
+            {data.length > 0 ? (
+               data.map((item, index) => (
+                  <ProductCard
+                     key={index}
+                     img01={item.image01}
+                     img02={item.image02}
+                     name={item.title}
+                     price={Number(item.price)}
+                     slug={item.slug}
+                  />
+               ))
+            ) : (
+               <p>No results found</p>
+            )}
          </Grid>
       </div>
    );
