@@ -130,7 +130,7 @@ const Catalog = () => {
    // ================================
    return (
       // Wrapping entire content in Helmet for setting the HTML metadata
-      <Helmet title="Sản phẩm">
+      <Helmet title="Product">
          {/* Main catalog container */}
          <div className="catalog">
             {/* Filter section */}
