@@ -35,7 +35,7 @@
             position: absolute;
             top: 0;
             left: 50%;
-            height: 70%;
+            height: 80%;
             transform: translateX(-50%);
          }
       }
@@ -45,7 +45,7 @@
       flex-grow: 1;
       position: sticky;
       top: $header-shrink-height;
-      padding-top: 2rem;
+      // padding-top: 2rem;
 
       @include mobile {
          position: relative;
