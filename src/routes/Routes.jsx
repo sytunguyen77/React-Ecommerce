@@ -7,6 +7,7 @@ import Catalog from "../pages/Catalog";
 import Cart from "../pages/Cart";
 import Product from "../pages/Product";
 import Form from "../pages/Form";
+import Contact from "../pages/Contact";
 
 const Routes = () => {
    return (
@@ -16,6 +17,7 @@ const Routes = () => {
          <Route path="/catalog" component={Catalog} />
          <Route path="/cart" component={Cart} />
          <Route path="/form" component={Form} />
+         <Route path="/contact" component={Contact} />
       </Switch>
    );
 };
