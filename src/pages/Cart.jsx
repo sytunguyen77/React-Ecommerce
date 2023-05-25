@@ -42,7 +42,7 @@ const Cart = () => {
 
    // Render the component
    return (
-      <Helmet title="Giỏ hàng">
+      <Helmet title="Cart">
          <div className="cart">
             {cartProducts.length > 0 ? (
                <>
