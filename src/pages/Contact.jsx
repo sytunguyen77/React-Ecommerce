@@ -9,7 +9,7 @@ const Contact = () => {
    return (
       <Helmet title="Contact">
          <div className="contact content">
-            <h2 className="contact__heading">Feel Free To Contact us</h2>
+            <h2 className="contact__heading">Feel Free To Contact Us</h2>
             <div className="contact__form form">
                <form onSubmit={handleSubmit}>
                   <div className="input-form">
