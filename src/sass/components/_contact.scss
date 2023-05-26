@@ -1,0 +1,49 @@
+.contact {
+   @include flex(center, center);
+   flex-direction: column;
+   width: 100%;
+
+   &__heading {
+      margin-bottom: 1rem;
+      color: $main-color;
+   }
+
+   &__map {
+      width: 100%;
+      position: absolute;
+      transform: translateY(450px);
+   }
+
+   &__form {
+      @include flex(center, center);
+      flex-direction: column;
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+      .input-form {
+         width: 100%;
+         margin-bottom: 20px;
+
+         span {
+            color: $main-color;
+         }
+
+         input,
+         textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid $main-color;
+            border-radius: 5px;
+            color: $main-color;
+         }
+
+         input[type="submit"] {
+            cursor: pointer;
+            background-color: $main-color;
+            color: white;
+         }
+      }
+   }
+}
