@@ -9,6 +9,7 @@ import Cart from "../pages/Cart";
 import Product from "../pages/Product";
 import Form from "../pages/Form";
 import Contact from "../pages/Contact";
+import Accessories from "../pages/Accessories";
 
 const Routes = () => {
    return (
@@ -20,6 +21,7 @@ const Routes = () => {
             <Route path="/catalog" component={Catalog} />
             <Route path="/cart" component={Cart} />
             <Route path="/form" component={Form} />
+            <Route path="/accessories" component={Accessories} />
             <Route path="/contact" component={Contact} />
          </Switch>
       </React.Fragment>
