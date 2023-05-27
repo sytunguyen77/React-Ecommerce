@@ -25,11 +25,7 @@ const ScrollToTopButton = () => {
 
    return (
       isVisible && (
-         <button
-            class="scroll-to-top-button"
-            onClick={scrollToTop}
-            style={{ position: "fixed", bottom: "20px", right: "20px" }}
-         >
+         <button class="scroll-to-top-button" onClick={scrollToTop}>
             <i class="bx bx-arrow-from-bottom"></i>
          </button>
       )
