@@ -6,7 +6,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 import ProductViewModal from "./ProductViewModal";
-import MessengerCustomerChat from "./MessengerChat";
+import MessengerCustomerChat from "react-messenger-customer-chat";
 
 import Routes from "../routes/Routes";
 
@@ -22,9 +22,9 @@ const Layout = () => {
                         <Routes />
                      </div>
                   </div>
-                  <MessengerCustomerChat />
                   <Footer />
                   <ProductViewModal />
+                  <MessengerCustomerChat pageId="110117278674345" appId="772179311221613" />,
                </div>
             )}
          />
