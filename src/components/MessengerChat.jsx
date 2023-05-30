@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 
-const MessengerChat = () => {
+function MessengerCustomerChat() {
    useEffect(() => {
       window.fbAsyncInit = function () {
          window.FB.init({
             xfbml: true,
-            version: "v12.0",
+            version: "v11.0",
          });
       };
+
       (function (d, s, id) {
          var js,
             fjs = d.getElementsByTagName(s)[0];
@@ -20,12 +21,10 @@ const MessengerChat = () => {
    }, []);
 
    return (
-      <div>
-         {/* Replace YOUR_PAGE_ID with your Facebook page's ID */}
+      <div id="fb-root">
          <div className="fb-customerchat" attribution="setup_tool" page_id="110117278674345"></div>
-         <div id="fb-root"></div>
       </div>
    );
-};
+}
 
-export default MessengerChat;
+export default MessengerCustomerChat;

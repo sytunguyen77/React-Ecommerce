@@ -6,7 +6,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 import ProductViewModal from "./ProductViewModal";
-import MessengerChat from "./MessengerChat";
+import MessengerCustomerChat from "./MessengerChat";
 
 import Routes from "../routes/Routes";
 
@@ -22,7 +22,7 @@ const Layout = () => {
                         <Routes />
                      </div>
                   </div>
-                  <MessengerChat />
+                  <MessengerCustomerChat />
                   <Footer />
                   <ProductViewModal />
                </div>
