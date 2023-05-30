@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-
 import { Route, Switch, useLocation } from "react-router-dom";
 import ScrollToTopButton from "../components/ScrollToTopButton";
+import LoadingComponent from "../components/Loader";
 
 import Home from "../pages/Home";
 import Catalog from "../pages/Catalog";
@@ -10,9 +10,6 @@ import Product from "../pages/Product";
 import Form from "../pages/Form";
 import Contact from "../pages/Contact";
 import Accessories from "../pages/Accessories";
-
-// Import the Puff loader from react-loader-spinner
-import { Puff } from "react-loader-spinner";
 
 const Routes = () => {
    const [loading, setLoading] = useState(false);
@@ -28,14 +25,7 @@ const Routes = () => {
       <React.Fragment>
          <ScrollToTopButton />
          {loading ? (
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70vh" }}>
-               <Puff
-                  color="#4267b2"
-                  height={100}
-                  width={100}
-                  timeout={1000} //3 secs
-               />
-            </div>
+            <LoadingComponent />
          ) : (
             <Switch>
                <Route path="/" exact component={Home} />
