@@ -22,7 +22,7 @@ const MessengerChat = () => {
    return (
       <div>
          {/* Replace YOUR_PAGE_ID with your Facebook page's ID */}
-         <div className="fb-customerchat" attribution="setup_tool" page_id="110117278674345"></div>
+         <div className="fb-customerchat" attribution="setup_tool" page_id="101836999602436"></div>
          <div id="fb-root"></div>
       </div>
    );
