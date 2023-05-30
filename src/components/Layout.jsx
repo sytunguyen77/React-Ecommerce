@@ -22,9 +22,9 @@ const Layout = () => {
                         <Routes />
                      </div>
                   </div>
+                  <MessengerChat />
                   <Footer />
                   <ProductViewModal />
-                  <MessengerChat />
                </div>
             )}
          />
