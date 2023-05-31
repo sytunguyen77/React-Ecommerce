@@ -8,6 +8,7 @@ import Catalog from "../pages/Catalog";
 import Cart from "../pages/Cart";
 import Product from "../pages/Product";
 import LoginForm from "../pages/LoginForm";
+import RegisterForm from "../pages/RegisterForm";
 import Contact from "../pages/Contact";
 import Accessories from "../pages/Accessories";
 
@@ -34,7 +35,8 @@ const Routes = () => {
                <Route path="/cart" component={Cart} />
                <Route path="/form" component={LoginForm} />
                <Route path="/accessories" component={Accessories} />
-               <Route path="/contact" component={Contact} />
+               <Route path="/register" component={RegisterForm} />
+               <Route path="/contact" component={Contact} />{" "}
             </Switch>
          )}
       </React.Fragment>
