@@ -143,7 +143,7 @@ const ProductView = (props) => {
             <h1 className="product__info__title">{product.title}</h1>
             {/* // Product price */}
             <div className="product__info__item">
-               <span className="product__info__item__price">{product.price}</span>
+               <span className="product__info__item__price">${product.price}</span>
             </div>
             {/* // Color selection section */}
             <div className="product__info__item">
