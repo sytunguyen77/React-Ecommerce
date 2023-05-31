@@ -29,11 +29,11 @@ const Layout = () => {
                      </div>
                      <Footer />
                      <ProductViewModal />
-                     <MessengerChat />
                   </>
                )}
             />
          </Switch>
+         <MessengerChat />
       </BrowserRouter>
    );
 };
