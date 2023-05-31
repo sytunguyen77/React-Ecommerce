@@ -129,7 +129,6 @@ const Catalog = () => {
    // RENDER
    // ================================
    return (
-      // Wrapping entire content in Helmet for setting the HTML metadata
       <Helmet title="Product">
          <div className="catalog">
             {/* Filter section */}

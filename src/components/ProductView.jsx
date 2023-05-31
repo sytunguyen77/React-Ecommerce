@@ -13,6 +13,10 @@ import Button from "./Button";
 import numberWithCommas from "../utils/numberWithCommas";
 import payment from "../assets/images/payment.png";
 
+// Toast notification
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // ProductView component
 const ProductView = (props) => {
    const dispatch = useDispatch(); // initializing redux dispatch
@@ -55,12 +59,12 @@ const ProductView = (props) => {
    // Check if color and size are selected
    const check = () => {
       if (color === undefined) {
-         alert("Please choose a color");
+         toast.error("Please choose a color");
          return false;
       }
 
       if (size === undefined) {
-         alert("Please choose size");
+         toast.error("Please choose size");
          return false;
       }
 
@@ -79,7 +83,7 @@ const ProductView = (props) => {
                price: product.price,
             })
          );
-         alert("success");
+         toast.success("Item added to cart successfully");
       }
    };
 
@@ -96,14 +100,13 @@ const ProductView = (props) => {
             })
          );
          props.history.push("/cart");
+         toast.success("Item added to cart successfully. Redirecting to cart...");
       }
    };
 
-   // Main component return
    return (
-      // Main product div
       <div className="product">
-         {/*  Section for product images */}
+         <ToastContainer />
          <div className="product__images">
             <div className="product__images__list">
                {/*  Image item 1 */}
