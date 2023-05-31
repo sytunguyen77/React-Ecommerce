@@ -19,8 +19,9 @@ import Button from "../components/Button";
 // Importing the CartItem component
 import CartItem from "../components/CartItem";
 
-// Importing the utility function to format numbers with commas
-import numberWithCommas from "../utils/numberWithCommas";
+// Importing toast from react-toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import empty from "../assets/images/EmptyCart.png";
 
@@ -40,9 +41,11 @@ const Cart = () => {
       setTotalProducts(cartItems.reduce((total, item) => total + Number(item.quantity), 0));
    }, [cartItems]);
 
-   // Render the component
+   const notify = () => toast.info("Sorry, this feature is not available yet.");
+
    return (
       <Helmet title="Cart">
+         <ToastContainer />
          <div className="cart">
             {cartProducts.length > 0 ? (
                <>
@@ -54,7 +57,9 @@ const Cart = () => {
                            <span>${totalPrice}</span>
                         </div>
                         <div className="cart__info__btn">
-                           <Button size="block">Checkout</Button>
+                           <Button size="block" onClick={notify}>
+                              Checkout
+                           </Button>
                            <Link to="/catalog">
                               <Button size="block">Continue Shopping</Button>
                            </Link>

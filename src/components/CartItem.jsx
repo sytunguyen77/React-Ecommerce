@@ -5,9 +5,6 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { updateItem, removeItem } from "../redux/shopping-cart/cartItemsSlide";
 
-// Utility Imports
-import numberWithCommas from "../utils/numberWithCommas";
-
 // Router Import
 import { Link } from "react-router-dom";
 
@@ -60,7 +57,7 @@ const CartItem = (props) => {
                </Link>
             </div>
             {/*  Item price section */}
-            <div className="cart__item__info__price">{numberWithCommas(item.price)}</div>
+            <div className="cart__item__info__price">${item.price}</div>
             {/*  Item quantity section */}
             <div className="cart__item__info__quantity">
                <div className="product__info__item__quantity">

@@ -10,7 +10,6 @@ import { withRouter } from "react-router";
 
 // Utility components
 import Button from "./Button";
-import numberWithCommas from "../utils/numberWithCommas";
 import payment from "../assets/images/payment.png";
 
 // Toast notification
@@ -144,7 +143,7 @@ const ProductView = (props) => {
             <h1 className="product__info__title">{product.title}</h1>
             {/* // Product price */}
             <div className="product__info__item">
-               <span className="product__info__item__price">{numberWithCommas(product.price)}</span>
+               <span className="product__info__item__price">{product.price}</span>
             </div>
             {/* // Color selection section */}
             <div className="product__info__item">

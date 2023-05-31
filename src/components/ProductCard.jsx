@@ -5,14 +5,12 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { set } from "../redux/product-modal/productModalSlice";
 import Button from "./Button";
-import numberWithCommas from "../utils/numberWithCommas";
 
 // Defining the ProductCard component
 const ProductCard = (props) => {
    // Using React-Redux Hooks for dispatching actions
    const dispatch = useDispatch();
 
-   // Render the component
    return (
       <div className="product-card">
          {/* Link to the individual product page using react-router-dom */}
@@ -29,7 +27,7 @@ const ProductCard = (props) => {
                {/* Price formatted with commas */}${props.price}
                <span className="product-card__price__old">
                   {/* Old price hard-coded (consider updating or using a prop) */}
-                  <del>${numberWithCommas(200)}</del>
+                  <del>${200}</del>
                </span>
             </div>
          </Link>
