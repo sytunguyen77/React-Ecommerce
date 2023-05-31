@@ -5,7 +5,7 @@ import Helmet from "../components/Helmet";
 
 import form from "../assets/images/Form.png";
 
-const Form = () => {
+const LoginForm = () => {
    // Function to handle form submission
    const handleSubmit = (event) => {
       event.preventDefault(); // This prevents the form from refreshing the page
@@ -17,7 +17,7 @@ const Form = () => {
       <Helmet title="Form">
          <section>
             {/* Start Image Section */}
-            <div className="img-bg">
+            <div className="img__bg">
                <img src={form} alt="" />
             </div>
             {/* End Image Section */}
@@ -26,11 +26,11 @@ const Form = () => {
                <div className="form">
                   <h2>LOGIN</h2>
                   <form onSubmit={handleSubmit}>
-                     <div className="input-form">
+                     <div className="input__form">
                         <span>Email or Phone Number</span>
                         <input type="text" name="" id="user" placeholder="Email or Phone" />
                      </div>
-                     <div className="input-form">
+                     <div className="input__form">
                         <span>Password</span>
                         <input
                            type="password"
@@ -44,14 +44,14 @@ const Form = () => {
                      {/* <div class="remember-login">
               <label><input type="checkbox" name=""> Remember account</label>
             </div> */}
-                     <div className="input-form">
+                     <div className="input__form">
                         <input type="submit" value="Log In" />
                      </div>
-                     <div className="input-form">
+                     <div className="input__form">
                         <a href="/auth/register">Create Account?</a>
                         {/* <a href="" id="myBtn">Forgot Password?</a> */}
                      </div>
-                     <div className="input-form">
+                     <div className="input__form">
                         <a href="/">Home Page</a>
                      </div>
                   </form>
@@ -63,4 +63,4 @@ const Form = () => {
    );
 };
 
-export default Form;
+export default LoginForm;

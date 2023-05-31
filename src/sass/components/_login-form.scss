@@ -6,7 +6,7 @@ section {
    font-family: "Roboto", sans-serif;
 }
 
-section .img-bg {
+section .img__bg {
    position: relative;
    width: 50%;
    height: 100%;
@@ -36,7 +36,7 @@ section .content {
          border-bottom: 4px solid $btn-main-bg;
          letter-spacing: 5px;
       }
-      .input-form {
+      .input__form {
          margin-bottom: 20px;
          text-align: center;
          span {
@@ -77,7 +77,7 @@ section .content {
 
 /* Responsive styles */
 @include tablet {
-   section .img-bg {
+   section .img__bg {
       position: absolute;
       top: 0;
       left: 0;

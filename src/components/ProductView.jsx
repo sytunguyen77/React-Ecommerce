@@ -16,6 +16,9 @@ import payment from "../assets/images/payment.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import InnerImageZoom from "react-inner-image-zoom";
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
+
 // ProductView component
 const ProductView = (props) => {
    const dispatch = useDispatch(); // initializing redux dispatch
@@ -119,7 +122,7 @@ const ProductView = (props) => {
             </div>
             {/* // Main product image */}
             <div className="product__images__main">
-               <img src={previewImg} alt="" />
+               <InnerImageZoom src={previewImg} alt="" />
             </div>
             {/* // Section for product description */}
             <div className={`product-description ${descriptionExpand ? "expand" : ""}`}>
