@@ -15,7 +15,7 @@ const Layout = () => {
    return (
       <BrowserRouter>
          <Switch>
-            <Route path="/form" component={LoginForm} />
+            <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
             <Route
                path={["/", "/catalog/:slug", "/catalog", "/cart", "/accessories", "/contact"]}

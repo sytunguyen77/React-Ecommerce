@@ -33,7 +33,7 @@ const Routes = () => {
                <Route path="/catalog/:slug" component={Product} />
                <Route path="/catalog" component={Catalog} />
                <Route path="/cart" component={Cart} />
-               <Route path="/form" component={LoginForm} />
+               <Route path="/login" component={LoginForm} />
                <Route path="/accessories" component={Accessories} />
                <Route path="/register" component={RegisterForm} />
                <Route path="/contact" component={Contact} />{" "}

@@ -137,10 +137,20 @@ const Header = () => {
                      </Link>
                   </div>
                   {/* User icon */}
-                  <div className="header__menu__item header__menu__right__item">
-                     <Link to="/form">
-                        <i className="bx bx-user"></i>
-                     </Link>
+                  <div className="header__menu__item header__menu__right__item header__menu__right__user">
+                     <i className="bx bx-user"></i>
+                     <div className="user-action">
+                        <ul>
+                           <Link to="/login">
+                              <i class="bx bx-log-in-circle"></i>
+                              <span>Login</span>
+                           </Link>
+                           <Link to="/register">
+                              <i class="bx bx-user-plus"></i>
+                              <span>Register</span>
+                           </Link>
+                        </ul>
+                     </div>
                   </div>
                </div>
             </div>

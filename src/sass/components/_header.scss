@@ -9,6 +9,73 @@
    height: 100px;
    transition: height 0.3s ease;
 
+   // // Additional styles for the user action dropdown
+   // .header__menu__right__item__user {
+   //    position: relative;
+   // }
+   // .header__menu__right__item__user:hover .user-action {
+   //    display: block;
+   // }
+
+   // .user-action {
+   //    position: absolute;
+   //    z-index: 9999;
+   //    top: 140%;
+   //    right: -20px;
+   //    background: #f1ebeb;
+   //    display: none;
+   //    border-radius: 10px;
+   //    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+   // }
+
+   // .user-action::before {
+   //    content: "";
+   //    position: absolute;
+   //    width: 50px;
+   //    height: 50px;
+   //    background-color: transparent;
+   //    top: -42px;
+   //    right: 5px;
+   //    z-index: 100;
+   // }
+
+   // .user-action::after {
+   //    content: "";
+   //    position: absolute;
+   //    width: 26px;
+   //    height: 26px;
+   //    background-color: #f1ebeb;
+   //    top: -10px;
+   //    right: 22px;
+   //    transform: rotate(45deg);
+   //    z-index: -1;
+   // }
+
+   // .user-action ul a {
+   //    padding: 15px;
+   //    font-size: 1.5rem;
+   //    white-space: nowrap;
+   //    display: flex;
+   //    align-items: center;
+   //    color: black;
+   // }
+
+   // .user-action ul a:hover {
+   //    color: #4267b2;
+   //    background: #e2dddd;
+   // }
+
+   // .user-action ul a:first-child {
+   //    border-radius: 10px 10px 0 0;
+   // }
+   // .user-action ul a:last-child {
+   //    border-radius: 0 0 10px 10px;
+   // }
+
+   // .user-action ul a i {
+   //    margin-right: 8px;
+   // }
+
    @include tablet {
       // Styles for the header on tablet devices
       height: $header-tablet-height;
@@ -137,6 +204,87 @@
                bottom: 10px;
                left: 10px;
                font-size: 0.75rem;
+            }
+         }
+
+         &__user {
+            // Styles for the user action dropdown
+            position: relative;
+            &:hover .user-action {
+               display: block;
+            }
+
+            .user-action {
+               position: absolute;
+               z-index: 9999;
+               top: 140%;
+               right: -20px;
+               background: #f1ebeb;
+               display: none;
+               border-radius: 10px;
+               box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+
+               &::before {
+                  content: "";
+                  position: absolute;
+                  width: 50px;
+                  height: 50px;
+                  background-color: transparent;
+                  top: -42px;
+                  right: 5px;
+                  z-index: 100;
+               }
+
+               &::after {
+                  content: "";
+                  position: absolute;
+                  width: 26px;
+                  height: 26px;
+                  background-color: #f1ebeb;
+                  top: -10px;
+                  right: 22px;
+                  transform: rotate(45deg);
+                  z-index: -1;
+                  @include mobile {
+                     right: 15px;
+                  }
+               }
+
+               ul {
+                  a {
+                     display: flex;
+                     align-items: center;
+                     padding: 15px;
+                     font-size: 1.5rem;
+                     white-space: nowrap;
+                     color: $txt-main-color;
+
+                     &:hover {
+                        color: $main-color;
+                        background: #e2dddd;
+                     }
+
+                     &:first-child {
+                        border-radius: 10px 10px 0 0;
+                     }
+
+                     &:last-child {
+                        border-radius: 0 0 10px 10px;
+                     }
+
+                     i {
+                        margin-right: 8px;
+                     }
+
+                     @include mobile {
+                        font-size: 1.2rem;
+                     }
+                  }
+               }
+               @include mobile {
+                  top: 200%;
+                  right: -20px;
+               }
             }
          }
       }

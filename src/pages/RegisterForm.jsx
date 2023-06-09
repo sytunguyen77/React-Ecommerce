@@ -66,7 +66,7 @@ const RegisterForm = () => {
                         <input type="submit" value="Register" />
                      </div>
                      <div className="input__form">
-                        <Link to="/form">Log In</Link>
+                        <Link to="/login">Log In</Link>
                      </div>
                      <div className="input__form">
                         <Link to="/">Home Page</Link>
