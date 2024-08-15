@@ -104,10 +104,16 @@ const LoginForm = () => {
                 )}
               </div>
               <div className="input__form">
+                <Link to="/ResetPasswordForm">Forgot Your Password?</Link>
+              </div>
+              <div className="input__form">
                 <input type="submit" value="Log In" />
               </div>
               <div className="input__form">
                 <Link to="/">Home Page</Link>
+              </div>
+              <div className="input__form">
+                <Link to="/register">Create an Account</Link>
               </div>
             </form>
           </div>

@@ -11,6 +11,7 @@ import LoginForm from "../pages/LoginForm";
 import RegisterForm from "../pages/RegisterForm";
 import Contact from "../pages/Contact";
 import Galleries from "../pages/Galleries";
+import ResetPasswordForm from "../pages/ResetPasswordForm";
 
 const Routes = () => {
   const [loading, setLoading] = useState(false);
@@ -36,6 +37,7 @@ const Routes = () => {
           <Route path="/login" component={LoginForm} />
           <Route path="/galleries" component={Galleries} />
           <Route path="/register" component={RegisterForm} />
+          <Route path="/ResetPasswordForm" component={ResetPasswordForm} />
           <Route path="/contact" component={Contact} />{" "}
         </Switch>
       )}

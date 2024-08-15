@@ -43,9 +43,23 @@ export const authSlice = createSlice({
       state.isAuthenticated = true;
       state.user = action.payload;
     },
+    resetPassword: (state, action) => {
+      const { username, newPassword } = action.payload;
+      const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+      const userIndex = existingUsers.findIndex(
+        (user) => user.username === username
+      );
+
+      if (userIndex !== -1) {
+        existingUsers[userIndex].password = newPassword;
+        localStorage.setItem("users", JSON.stringify(existingUsers));
+      } else {
+        return { error: "Username does not exist." };
+      }
+    },
   },
 });
 
-export const { login, logout, register } = authSlice.actions;
+export const { login, logout, register, resetPassword } = authSlice.actions;
 
 export default authSlice.reducer;
