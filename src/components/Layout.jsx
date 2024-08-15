@@ -5,7 +5,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import ProductViewModal from "./ProductViewModal";
 
-import MessengerChat from "./MessengerChat";
+// import MessengerChat from "./MessengerChat";
+import ChatEmbed from "./ChatEmbed";
 
 import Routes from "../routes/Routes";
 import LoginForm from "../pages/LoginForm";
@@ -42,7 +43,8 @@ const Layout = () => {
           )}
         />
       </Switch>
-      <MessengerChat />
+      {/* <MessengerChat /> */}
+      <ChatEmbed />
     </BrowserRouter>
   );
 };

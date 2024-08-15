@@ -73,9 +73,6 @@ const ResetPasswordForm = () => {
     <Helmet title="Reset Password">
       <ToastContainer />
       <section>
-        <div className="img__bg">
-          <img src={form} alt="" />
-        </div>
         <div className="content">
           <div className="form">
             <h2>Reset Password</h2>
@@ -130,6 +127,9 @@ const ResetPasswordForm = () => {
               </div>
             </form>
           </div>
+        </div>
+        <div className="img__bg">
+          <img src={form} alt="" />
         </div>
       </section>
     </Helmet>
