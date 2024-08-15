@@ -1,349 +1,282 @@
 .header {
-   // General styles for the header
-   background-color: $main-bg;
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   z-index: 90;
-   height: 100px;
-   transition: height 0.3s ease;
+  // General styles for the header
+  background-color: $main-bg;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 90;
+  height: 100px;
+  transition: height 0.3s ease;
 
-   // // Additional styles for the user action dropdown
-   // .header__menu__right__item__user {
-   //    position: relative;
-   // }
-   // .header__menu__right__item__user:hover .user-action {
-   //    display: block;
-   // }
+  @include tablet {
+    // Styles for the header on tablet devices
+    height: $header-tablet-height;
+    box-shadow: $box-shadow;
+  }
 
-   // .user-action {
-   //    position: absolute;
-   //    z-index: 9999;
-   //    top: 140%;
-   //    right: -20px;
-   //    background: #f1ebeb;
-   //    display: none;
-   //    border-radius: 10px;
-   //    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-   // }
+  @include mobile {
+    // Styles for the header on mobile devices
+    height: $header-mobile-height;
+  }
 
-   // .user-action::before {
-   //    content: "";
-   //    position: absolute;
-   //    width: 50px;
-   //    height: 50px;
-   //    background-color: transparent;
-   //    top: -42px;
-   //    right: 5px;
-   //    z-index: 100;
-   // }
+  .container {
+    // Styles for the container within the header
+    height: 100%;
+  }
 
-   // .user-action::after {
-   //    content: "";
-   //    position: absolute;
-   //    width: 26px;
-   //    height: 26px;
-   //    background-color: #f1ebeb;
-   //    top: -10px;
-   //    right: 22px;
-   //    transform: rotate(45deg);
-   //    z-index: -1;
-   // }
+  &.shrink {
+    // Styles for the header when it shrinks
+    height: $header-shrink-height;
+    box-shadow: $box-shadow;
+    z-index: 100;
 
-   // .user-action ul a {
-   //    padding: 15px;
-   //    font-size: 1.5rem;
-   //    white-space: nowrap;
-   //    display: flex;
-   //    align-items: center;
-   //    color: black;
-   // }
-
-   // .user-action ul a:hover {
-   //    color: #4267b2;
-   //    background: #e2dddd;
-   // }
-
-   // .user-action ul a:first-child {
-   //    border-radius: 10px 10px 0 0;
-   // }
-   // .user-action ul a:last-child {
-   //    border-radius: 0 0 10px 10px;
-   // }
-
-   // .user-action ul a i {
-   //    margin-right: 8px;
-   // }
-
-   @include tablet {
-      // Styles for the header on tablet devices
-      height: $header-tablet-height;
-      box-shadow: $box-shadow;
-   }
-
-   @include mobile {
-      // Styles for the header on mobile devices
+    @include mobile {
       height: $header-mobile-height;
-   }
+    }
+  }
 
-   .container {
-      // Styles for the container within the header
-      height: 100%;
-   }
+  &__logo {
+    // Styles for the logo within the header
+    @include flex(center, center);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
 
-   &.shrink {
-      // Styles for the header when it shrinks
-      height: $header-shrink-height;
-      box-shadow: $box-shadow;
-      z-index: 100;
+    img {
+      height: 200px;
+    }
+
+    @include mobile {
+      height: 30px;
+    }
+  }
+
+  &__menu {
+    // Styles for the menu within the header
+    @include flex(center, space-between);
+    height: 100%;
+    font-size: 1.5rem;
+
+    &__item ~ &__item {
+      // Styles for menu items
+      margin-left: 39px;
+
+      @include tablet {
+        margin-left: 20px;
+      }
 
       @include mobile {
-         height: $header-mobile-height;
+        margin-left: 10px;
       }
-   }
+    }
 
-   &__logo {
-      // Styles for the logo within the header
+    &__item.active {
+      // Styles for the active menu item
+      font-weight: 600;
+      color: $main-color;
+    }
+
+    &__item:hover {
+      // Styles for the menu item on hover
+      color: $main-color;
+    }
+
+    &__left,
+    &__right {
+      // Styles for the left and right parts of the menu
       @include flex(center, center);
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
+      height: 100%;
+    }
 
-      img {
-         height: 200px;
+    &__right {
+      // Styles for the right part of the menu
+      font-size: 2.25rem;
+
+      &__item {
+        @include flex(center, center);
+
+        @include tablet {
+          margin-left: 10px;
+        }
       }
 
       @include mobile {
-         height: 30px;
+        font-size: 1.5rem;
       }
-   }
+    }
 
-   &__menu {
-      // Styles for the menu within the header
-      @include flex(center, space-between);
-      height: 100%;
-      font-size: 1.5rem;
-
-      &__item ~ &__item {
-         // Styles for menu items
-         margin-left: 39px;
-
-         @include tablet {
-            margin-left: 20px;
-         }
-
-         @include mobile {
-            margin-left: 10px;
-         }
+    &__right {
+      &__item {
+        cursor: pointer;
       }
 
-      &__item.active {
-         // Styles for the active menu item
-         font-weight: 600;
-         color: $main-color;
+      &__cart {
+        // Styles for the cart icon in the right part of the menu
+        position: relative;
       }
 
-      &__item:hover {
-         // Styles for the menu item on hover
-         color: $main-color;
+      &__count {
+        // Styles for the count indicator near the cart icon
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+        background-color: $main-color;
+        color: white;
+        border-radius: 50%;
+        font-size: 0.8rem;
+
+        @include mobile {
+          width: 12px;
+          height: 12px;
+          bottom: 10px;
+          left: 10px;
+          font-size: 0.75rem;
+        }
       }
 
-      &__left,
-      &__right {
-         // Styles for the left and right parts of the menu
-         @include flex(center, center);
-         height: 100%;
-      }
+      &__user {
+        // Styles for the user action dropdown
+        position: relative;
+        &:hover .user-action {
+          display: block;
+        }
 
-      &__right {
-         // Styles for the right part of the menu
-         font-size: 2.25rem;
+        .user-action {
+          position: absolute;
+          z-index: 9999;
+          top: 140%;
+          right: -20px;
+          background: #f1ebeb;
+          display: none;
+          border-radius: 10px;
+          box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
 
-         &__item {
-            @include flex(center, center);
-
-            @include tablet {
-               margin-left: 10px;
-            }
-         }
-
-         @include mobile {
-            font-size: 1.5rem;
-         }
-      }
-
-      &__right {
-         &__item {
-            cursor: pointer;
-         }
-
-         &__cart {
-            // Styles for the cart icon in the right part of the menu
-            position: relative;
-         }
-
-         &__count {
-            // Styles for the count indicator near the cart icon
-            display: flex;
-            justify-content: center;
-            align-items: center;
+          &::before {
+            content: "";
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            width: 20px;
-            height: 20px;
-            background-color: $main-color;
-            color: white;
-            border-radius: 50%;
-            font-size: 0.8rem;
+            width: 50px;
+            height: 50px;
+            background-color: transparent;
+            top: -42px;
+            right: 5px;
+            z-index: 100;
+          }
 
+          &::after {
+            content: "";
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background-color: #f1ebeb;
+            top: -10px;
+            right: 22px;
+            transform: rotate(45deg);
+            z-index: -1;
             @include mobile {
-               width: 12px;
-               height: 12px;
-               bottom: 10px;
-               left: 10px;
-               font-size: 0.75rem;
+              right: 15px;
             }
-         }
+          }
 
-         &__user {
-            // Styles for the user action dropdown
-            position: relative;
-            &:hover .user-action {
-               display: block;
+          ul {
+            li {
+              display: flex;
+              align-items: center;
+              padding: 15px;
+              font-size: 1.5rem;
+              white-space: nowrap;
+              color: $txt-main-color;
+
+              &:hover {
+                color: $main-color;
+                background: #e2dddd;
+              }
+
+              &:first-child {
+                border-radius: 10px 10px 0 0;
+              }
+
+              &:last-child {
+                border-radius: 0 0 10px 10px;
+              }
+
+              i {
+                margin-right: 8px;
+              }
+
+              @include mobile {
+                font-size: 1.2rem;
+              }
             }
+          }
+          @include mobile {
+            top: 200%;
+            right: -20px;
+          }
+        }
+      }
+    }
 
-            .user-action {
-               position: absolute;
-               z-index: 9999;
-               top: 140%;
-               right: -20px;
-               background: #f1ebeb;
-               display: none;
-               border-radius: 10px;
-               box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-
-               &::before {
-                  content: "";
-                  position: absolute;
-                  width: 50px;
-                  height: 50px;
-                  background-color: transparent;
-                  top: -42px;
-                  right: 5px;
-                  z-index: 100;
-               }
-
-               &::after {
-                  content: "";
-                  position: absolute;
-                  width: 26px;
-                  height: 26px;
-                  background-color: #f1ebeb;
-                  top: -10px;
-                  right: 22px;
-                  transform: rotate(45deg);
-                  z-index: -1;
-                  @include mobile {
-                     right: 15px;
-                  }
-               }
-
-               ul {
-                  a {
-                     display: flex;
-                     align-items: center;
-                     padding: 15px;
-                     font-size: 1.5rem;
-                     white-space: nowrap;
-                     color: $txt-main-color;
-
-                     &:hover {
-                        color: $main-color;
-                        background: #e2dddd;
-                     }
-
-                     &:first-child {
-                        border-radius: 10px 10px 0 0;
-                     }
-
-                     &:last-child {
-                        border-radius: 0 0 10px 10px;
-                     }
-
-                     i {
-                        margin-right: 8px;
-                     }
-
-                     @include mobile {
-                        font-size: 1.2rem;
-                     }
-                  }
-               }
-               @include mobile {
-                  top: 200%;
-                  right: -20px;
-               }
-            }
-         }
+    &__left {
+      &__close {
+        // Styles for the close button in the left part of the menu
+        display: none;
+        &:hover {
+          color: $main-color;
+        }
       }
 
-      &__left {
-         &__close {
-            // Styles for the close button in the left part of the menu
-            display: none;
-            &:hover {
-               color: $main-color;
-            }
-         }
+      @include tablet {
+        // Styles for the left part of the menu on tablet devices
+        flex-direction: column;
+        background-color: $main-bg;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        justify-content: flex-start;
+        padding-top: 30px;
+        transform: translateX(-100%);
+        transition: transform 0.5s ease;
+        cursor: pointer;
+        z-index: 1000;
 
-         @include tablet {
-            // Styles for the left part of the menu on tablet devices
-            flex-direction: column;
-            background-color: $main-bg;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100vh;
-            justify-content: flex-start;
-            padding-top: 30px;
-            transform: translateX(-100%);
-            transition: transform 0.5s ease;
-            cursor: pointer;
-            z-index: 1000;
+        &.active {
+          transform: translateX(0);
+        }
 
-            &.active {
-               transform: translateX(0);
-            }
+        &__item ~ &__item {
+          margin-left: unset;
+          margin-top: 20px;
+        }
 
-            &__item ~ &__item {
-               margin-left: unset;
-               margin-top: 20px;
-            }
+        &__close {
+          display: block;
+          position: absolute;
+          left: 20px;
+          font-size: 2.5rem;
+        }
+      }
+    }
 
-            &__close {
-               display: block;
-               position: absolute;
-               left: 20px;
-               font-size: 2.5rem;
-            }
-         }
+    &__mobile-toggle {
+      // Styles for the menu toggle button on mobile devices
+      display: none;
+      cursor: pointer;
+      &:hover {
+        color: $main-color;
       }
 
-      &__mobile-toggle {
-         // Styles for the menu toggle button on mobile devices
-         display: none;
-         cursor: pointer;
-         &:hover {
-            color: $main-color;
-         }
-
-         @include tablet {
-            display: block;
-            font-size: 2.5rem;
-         }
+      @include tablet {
+        display: block;
+        font-size: 2.5rem;
       }
-   }
+    }
+  }
 }
