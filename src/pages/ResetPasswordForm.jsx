@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom"; // Import Link from react-router-dom
 import { resetPassword } from "../redux/authentication/authSlice";
 import Helmet from "../components/Helmet";
+import form from "../assets/images/Form3.jpg";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const ResetPasswordForm = () => {
   const dispatch = useDispatch();
@@ -73,6 +73,9 @@ const ResetPasswordForm = () => {
     <Helmet title="Reset Password">
       <ToastContainer />
       <section>
+        <div className="img__bg">
+          <img src={form} alt="" />
+        </div>
         <div className="content">
           <div className="form">
             <h2>Reset Password</h2>
@@ -120,6 +123,10 @@ const ResetPasswordForm = () => {
               </div>
               <div className="input__form">
                 <input type="submit" value="Reset Password" />
+              </div>
+              <div className="input__form">
+                <Link to="/">Back to Home</Link>{" "}
+                {/* Add the link to homepage */}
               </div>
             </form>
           </div>

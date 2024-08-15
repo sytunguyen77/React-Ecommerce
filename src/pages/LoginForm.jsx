@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { login } from "../redux/authentication/authSlice";
 import Helmet from "../components/Helmet";
-import form from "../assets/images/Form2.png";
+import form from "../assets/images/Form.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -104,16 +104,16 @@ const LoginForm = () => {
                 )}
               </div>
               <div className="input__form">
-                <Link to="/ResetPasswordForm">Forgot Your Password?</Link>
+                <Link to="/reset-password">Forgot Your Password?</Link>
               </div>
               <div className="input__form">
                 <input type="submit" value="Log In" />
               </div>
               <div className="input__form">
-                <Link to="/">Home Page</Link>
+                <Link to="/register">Create an Account</Link>
               </div>
               <div className="input__form">
-                <Link to="/register">Create an Account</Link>
+                <Link to="/">Back to Home</Link>
               </div>
             </form>
           </div>
