@@ -12,14 +12,18 @@ const RegisterForm = () => {
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const [validInputs, setValidInputs] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const validate = (formData) => {
     const errors = {};
     const validInputs = {};
+
     const usernamePattern = /^[a-zA-Z0-9_]{6,}$/;
     const phonePattern =
       /^(\+?\d{1,2})?\s?(\(?\d{3}\)?|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordPattern =
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
 
     // Check for empty fields and validity
     if (!formData.username) {
@@ -49,8 +53,9 @@ const RegisterForm = () => {
 
     if (!formData.password) {
       errors.password = "Password is required.";
-    } else if (formData.password.length < 6) {
-      errors.password = "Password must be at least 6 characters long.";
+    } else if (!passwordPattern.test(formData.password)) {
+      errors.password =
+        "Password must be at least 6 characters long, and include at least one uppercase letter, one lowercase letter, one number, and one special character.";
     } else {
       validInputs.password = true;
     }
@@ -69,6 +74,7 @@ const RegisterForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const formData = new FormData(event.target);
     const data = {
       username: formData.get("name"),
@@ -82,6 +88,7 @@ const RegisterForm = () => {
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      setIsLoading(false);
       return;
     }
 
@@ -93,6 +100,7 @@ const RegisterForm = () => {
 
     if (userExists) {
       setErrors({ username: "Username already exists." });
+      setIsLoading(false);
       return;
     }
 
@@ -123,8 +131,9 @@ const RegisterForm = () => {
 
     // Redirect to login page after showing the toast
     setTimeout(() => {
-      history.push("/login"); // Redirect to login page after successful registration
-    }, 2000); // Wait 2 seconds before redirecting
+      setIsLoading(false);
+      history.push("/login");
+    }, 2000);
   };
 
   return (
@@ -153,7 +162,6 @@ const RegisterForm = () => {
                   name="name"
                   id="user"
                   placeholder="UserName"
-                  minLength="6"
                 />
                 {errors.username && (
                   <span className="error">{errors.username}</span>
@@ -212,7 +220,6 @@ const RegisterForm = () => {
                   id="password"
                   name="password"
                   placeholder="Password"
-                  minLength="6"
                 />
                 {errors.password && (
                   <span className="error">{errors.password}</span>
@@ -233,20 +240,24 @@ const RegisterForm = () => {
                   placeholder="Confirm"
                   id="confirm"
                   name="confirm"
-                  minLength="6"
                 />
                 {errors.confirmPassword && (
                   <span className="error">{errors.confirmPassword}</span>
                 )}
               </div>
               <div className="input__form">
-                <input type="submit" value="Register" />
+                <input
+                  type="submit"
+                  value={isLoading ? "Registering..." : "Register"}
+                  disabled={isLoading}
+                />
+                {isLoading && <div className="loading-circle"></div>}
               </div>
               <div className="input__form">
                 <Link to="/login">Log In</Link>
               </div>
               <div className="input__form">
-                <Link to="/">Home Page</Link>
+                <Link to="/">Back To Home</Link>
               </div>
             </form>
           </div>

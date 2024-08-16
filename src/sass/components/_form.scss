@@ -39,6 +39,7 @@ section .content {
     .input__form {
       margin-bottom: 20px;
       text-align: center;
+      position: relative;
       span {
         font-size: 16px;
         margin-bottom: 5px;
@@ -65,15 +66,45 @@ section .content {
         cursor: pointer;
         box-shadow: $box-shadow;
         transition: all 0.5s;
+        position: relative;
+        padding-left: 30px;
       }
       input[type="submit"]:hover {
         background: #f53677;
       }
+      input[type="submit"]:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+      }
+
+      // Add the loading circle styles here
+      .loading-circle {
+        position: absolute;
+        left: 140px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 2px solid #fff;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: translateY(-50%) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-50%) rotate(360deg);
+        }
+      }
     }
+
     // Error styles
     .error {
       color: red !important;
-      font-size: 14px;
+      font-size: 12px !important;
       margin-top: 5px;
       display: block;
     }
@@ -113,6 +144,40 @@ section .content {
         margin: 30px 0 10px;
         font-weight: 500;
       }
+    }
+  }
+}
+
+/* Additional responsive styles for the loading circle */
+@include desktop {
+  section .content .form .input__form {
+    .loading-circle {
+      left: 70px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+@include tablet {
+  section .content .form .input__form {
+    .loading-circle {
+      left: 170px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+@include mobile {
+  section .content .form .input__form {
+    input[type="submit"] {
+      font-size: 14px;
+    }
+    .loading-circle {
+      left: 60px;
+      width: 12px;
+      height: 12px;
     }
   }
 }
