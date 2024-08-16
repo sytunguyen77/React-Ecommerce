@@ -10,18 +10,20 @@ import "react-toastify/dist/ReactToastify.css";
 const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false); // Loading state
 
+  // State management for form errors, loading state, and button click
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
+
+  // Form validation function
   const validate = (data) => {
     const errors = {};
 
-    // Validate username
     if (!data.username) {
       errors.username = "Username is required.";
     }
 
-    // Validate password
     if (!data.password) {
       errors.password = "Password is required.";
     }
@@ -29,49 +31,66 @@ const LoginForm = () => {
     return errors;
   };
 
+  // Clear errors when user starts typing
+  const handleInputChange = (e) => {
+    const { name } = e.target;
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: undefined,
+    }));
+  };
+
+  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    setIsLoading(true); // Start loading
+    setButtonClicked(true);
+    setIsLoading(true);
+
+    // Get form data
     const formData = new FormData(event.target);
     const data = {
-      username: formData.get("name"),
+      username: formData.get("username"),
       password: formData.get("password"),
     };
 
-    // Validate input fields
+    // Validate form data
     const validationErrors = validate(data);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      setIsLoading(false); // Stop loading if there are errors
+      setIsLoading(false);
+      setButtonClicked(false);
       return;
     }
 
-    // Check if the user exists in localStorage
+    // Check if user exists
     const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
     const user = existingUsers.find((user) => user.username === data.username);
 
     if (!user) {
       setErrors({ username: "Username does not exist." });
-      setIsLoading(false); // Stop loading if user doesn't exist
+      setIsLoading(false);
+      setButtonClicked(false);
       return;
     }
 
-    // Check if the password matches
+    // Check if password is correct
     if (user.password !== data.password) {
       setErrors({ password: "Incorrect password." });
-      setIsLoading(false); // Stop loading if password is incorrect
+      setIsLoading(false);
+      setButtonClicked(false);
       return;
     }
 
     // Dispatch login action
     dispatch(login(user));
 
-    // Show success toast notification
+    // Show success message
     toast.success("Login successful!");
 
-    // Redirect to home page after showing the toast
+    // Redirect to home page after a delay
     setTimeout(() => {
-      setIsLoading(false); // Stop loading before redirect
+      setIsLoading(false);
+      setButtonClicked(false);
       history.push("/");
     }, 2000);
   };
@@ -87,39 +106,66 @@ const LoginForm = () => {
           <div className="form">
             <h2>Login</h2>
             <form id="form__login" onSubmit={handleSubmit}>
+              {/* Username input field */}
               <div
                 className={`input__form ${
                   errors.username ? "error-outline" : ""
                 }`}
               >
                 <span>Username</span>
-                <input type="text" name="name" placeholder="UserName" />
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  onChange={handleInputChange}
+                />
                 {errors.username && (
                   <span className="error">{errors.username}</span>
                 )}
               </div>
+
+              {/* Password input field */}
               <div
                 className={`input__form ${
                   errors.password ? "error-outline" : ""
                 }`}
               >
                 <span>Password</span>
-                <input type="password" name="password" placeholder="Password" />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleInputChange}
+                />
                 {errors.password && (
                   <span className="error">{errors.password}</span>
                 )}
               </div>
+
+              {/* Forgot password link */}
               <div className="input__form">
                 <Link to="/reset-password">Forgot Your Password?</Link>
               </div>
+
+              {/* Submit button with loading state */}
               <div className="input__form">
-                <input
+                <button
                   type="submit"
-                  value={isLoading ? "Logging In..." : "Log In"}
                   disabled={isLoading}
-                />
-                {isLoading && <div className="loading-circle"></div>}
+                  className="submit-button"
+                >
+                  {buttonClicked && isLoading ? (
+                    <>
+                      <span className="loading-circle"></span>
+                      <span className="logging-in-text">Logging In...</span>
+                    </>
+                  ) : (
+                    "Log In"
+                  )}
+                </button>
               </div>
+
+              {/* Links to register and home page */}
               <div className="input__form">
                 <Link to="/register">Create an Account</Link>
               </div>

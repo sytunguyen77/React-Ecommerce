@@ -1,23 +1,27 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { register } from "../redux/authentication/authSlice";
 import Helmet from "../components/Helmet";
 import form from "../assets/images/Form2.png";
-import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  // State management for form errors, valid inputs, loading state, and button click
   const [errors, setErrors] = useState({});
   const [validInputs, setValidInputs] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
+  // Form validation function
   const validate = (formData) => {
     const errors = {};
     const validInputs = {};
 
+    // Regular expressions for input validation
     const usernamePattern = /^[a-zA-Z0-9_]{6,}$/;
     const phonePattern =
       /^(\+?\d{1,2})?\s?(\(?\d{3}\)?|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/;
@@ -25,7 +29,7 @@ const RegisterForm = () => {
     const passwordPattern =
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
 
-    // Check for empty fields and validity
+    // Validate username
     if (!formData.username) {
       errors.username = "Username is required.";
     } else if (!usernamePattern.test(formData.username)) {
@@ -35,6 +39,7 @@ const RegisterForm = () => {
       validInputs.username = true;
     }
 
+    // Validate phone number
     if (!formData.phoneNumber) {
       errors.phoneNumber = "Phone number is required.";
     } else if (!phonePattern.test(formData.phoneNumber)) {
@@ -43,6 +48,7 @@ const RegisterForm = () => {
       validInputs.phoneNumber = true;
     }
 
+    // Validate email
     if (!formData.email) {
       errors.email = "Email is required.";
     } else if (!emailPattern.test(formData.email)) {
@@ -51,6 +57,7 @@ const RegisterForm = () => {
       validInputs.email = true;
     }
 
+    // Validate password
     if (!formData.password) {
       errors.password = "Password is required.";
     } else if (!passwordPattern.test(formData.password)) {
@@ -60,6 +67,7 @@ const RegisterForm = () => {
       validInputs.password = true;
     }
 
+    // Validate confirm password
     if (!formData.confirmPassword) {
       errors.confirmPassword = "Please confirm your password.";
     } else if (formData.password !== formData.confirmPassword) {
@@ -72,9 +80,26 @@ const RegisterForm = () => {
     return errors;
   };
 
+  // Handle input changes and clear errors
+  const handleInputChange = (e) => {
+    const { name } = e.target;
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: undefined,
+    }));
+    setValidInputs((prevValidInputs) => ({
+      ...prevValidInputs,
+      [name]: undefined,
+    }));
+  };
+
+  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
+    setButtonClicked(true);
     setIsLoading(true);
+
+    // Get form data
     const formData = new FormData(event.target);
     const data = {
       username: formData.get("name"),
@@ -84,15 +109,17 @@ const RegisterForm = () => {
       confirmPassword: formData.get("confirm"),
     };
 
+    // Validate form data
     const validationErrors = validate(data);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       setIsLoading(false);
+      setButtonClicked(false);
       return;
     }
 
-    // Check if the username already exists
+    // Check if username already exists
     const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
     const userExists = existingUsers.some(
       (user) => user.username === data.username
@@ -101,10 +128,11 @@ const RegisterForm = () => {
     if (userExists) {
       setErrors({ username: "Username already exists." });
       setIsLoading(false);
+      setButtonClicked(false);
       return;
     }
 
-    // If validation passes and username is unique, store the user
+    // Add new user to localStorage
     const updatedUsers = [
       ...existingUsers,
       {
@@ -116,7 +144,7 @@ const RegisterForm = () => {
     ];
     localStorage.setItem("users", JSON.stringify(updatedUsers));
 
-    // Dispatch registration action
+    // Dispatch register action
     dispatch(
       register({
         username: data.username,
@@ -126,12 +154,13 @@ const RegisterForm = () => {
       })
     );
 
-    // Show success toast notification
+    // Show success message
     toast.success("Registration successful! Please log in.");
 
-    // Redirect to login page after showing the toast
+    // Redirect to login page after a delay
     setTimeout(() => {
       setIsLoading(false);
+      setButtonClicked(false);
       history.push("/login");
     }, 2000);
   };
@@ -147,6 +176,7 @@ const RegisterForm = () => {
           <div className="form">
             <h2>Register</h2>
             <form id="form__register" onSubmit={handleSubmit}>
+              {/* Username input field */}
               <div
                 className={`input__form ${
                   errors.username
@@ -161,12 +191,15 @@ const RegisterForm = () => {
                   type="text"
                   name="name"
                   id="user"
-                  placeholder="UserName"
+                  placeholder="Username"
+                  onChange={handleInputChange}
                 />
                 {errors.username && (
                   <span className="error">{errors.username}</span>
                 )}
               </div>
+
+              {/* Phone number input field */}
               <div
                 className={`input__form ${
                   errors.phoneNumber
@@ -182,11 +215,14 @@ const RegisterForm = () => {
                   id="phoneNumber"
                   name="phoneNumber"
                   placeholder="Phone"
+                  onChange={handleInputChange}
                 />
                 {errors.phoneNumber && (
                   <span className="error">{errors.phoneNumber}</span>
                 )}
               </div>
+
+              {/* Email input field */}
               <div
                 className={`input__form ${
                   errors.email
@@ -202,9 +238,12 @@ const RegisterForm = () => {
                   id="email"
                   name="email"
                   placeholder="Email"
+                  onChange={handleInputChange}
                 />
                 {errors.email && <span className="error">{errors.email}</span>}
               </div>
+
+              {/* Password input field */}
               <div
                 className={`input__form ${
                   errors.password
@@ -220,11 +259,14 @@ const RegisterForm = () => {
                   id="password"
                   name="password"
                   placeholder="Password"
+                  onChange={handleInputChange}
                 />
                 {errors.password && (
                   <span className="error">{errors.password}</span>
                 )}
               </div>
+
+              {/* Confirm password input field */}
               <div
                 className={`input__form ${
                   errors.confirmPassword
@@ -237,22 +279,35 @@ const RegisterForm = () => {
                 <span>Confirm Password</span>
                 <input
                   type="password"
-                  placeholder="Confirm"
+                  placeholder="Confirm Password"
                   id="confirm"
                   name="confirm"
+                  onChange={handleInputChange}
                 />
                 {errors.confirmPassword && (
                   <span className="error">{errors.confirmPassword}</span>
                 )}
               </div>
+
+              {/* Submit button with loading state */}
               <div className="input__form">
-                <input
+                <button
                   type="submit"
-                  value={isLoading ? "Registering..." : "Register"}
                   disabled={isLoading}
-                />
-                {isLoading && <div className="loading-circle"></div>}
+                  className="submit-button"
+                >
+                  {buttonClicked && isLoading ? (
+                    <>
+                      <span className="loading-circle"></span>
+                      <span className="logging-in-text">Registering...</span>
+                    </>
+                  ) : (
+                    "Register"
+                  )}
+                </button>
               </div>
+
+              {/* Links to login and home page */}
               <div className="input__form">
                 <Link to="/login">Log In</Link>
               </div>

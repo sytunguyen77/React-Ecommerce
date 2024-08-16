@@ -4,180 +4,199 @@ section {
   height: 100vh;
   @include flex(center, center);
   font-family: "Roboto", sans-serif;
-}
 
-section .img__bg {
-  position: relative;
-  width: 50%;
-  height: 100%;
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 0px 20%;
-  }
-}
-
-section .content {
-  @include flex(center, center);
-  width: 50%;
-  height: 100%;
-  .form {
+  .img__bg {
+    position: relative;
     width: 50%;
-    h2 {
-      color: $main-color;
-      font-weight: 500;
-      font-size: 1.5em;
-      text-align: center;
-      margin-bottom: 40px;
-      border-bottom: 4px solid $btn-main-bg;
-      letter-spacing: 5px;
+    height: 100%;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 0px 20%;
     }
-    .input__form {
-      margin-bottom: 20px;
-      text-align: center;
-      position: relative;
-      span {
-        font-size: 16px;
-        margin-bottom: 5px;
-        display: inline-block;
+  }
+
+  .content {
+    @include flex(center, center);
+    width: 50%;
+    height: 100%;
+
+    .form {
+      width: 50%;
+
+      h2 {
         color: $main-color;
-        letter-spacing: 1px;
-      }
-      input {
-        width: 100%;
-        padding: 10px 20px;
-        outline: none;
-        border: 1px solid $main-color;
-        font-size: 16px;
-        color: $main-color;
-        background: transparent;
-        border-radius: 30px;
-      }
-      input[type="submit"] {
-        background: $btn-main-bg;
-        color: $txt-white;
-        outline: none;
-        border: none;
         font-weight: 500;
-        cursor: pointer;
-        box-shadow: $box-shadow;
-        transition: all 0.5s;
+        font-size: 1.5em;
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 4px solid $btn-main-bg;
+        letter-spacing: 5px;
+      }
+
+      .input__form {
+        margin-bottom: 20px;
+        text-align: center;
         position: relative;
-        padding-left: 30px;
-      }
-      input[type="submit"]:hover {
-        background: #f53677;
-      }
-      input[type="submit"]:disabled {
-        cursor: not-allowed;
-        opacity: 0.7;
-      }
 
-      // Add the loading circle styles here
-      .loading-circle {
-        position: absolute;
-        left: 140px;
-        top: 50%;
-        transform: translateY(-50%);
-        border: 2px solid #fff;
-        border-top: 2px solid transparent;
-        border-radius: 50%;
-        width: 16px;
-        height: 16px;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: translateY(-50%) rotate(0deg);
+        span {
+          font-size: 16px;
+          margin-bottom: 5px;
+          display: inline-block;
+          color: $main-color;
+          letter-spacing: 1px;
         }
-        100% {
-          transform: translateY(-50%) rotate(360deg);
+
+        input {
+          width: 100%;
+          padding: 10px 20px;
+          outline: none;
+          border: 1px solid $main-color;
+          font-size: 16px;
+          color: $main-color;
+          background: transparent;
+          border-radius: 30px;
+        }
+
+        .submit-button {
+          width: 100%;
+          padding: 10px 20px;
+          background: $btn-main-bg;
+          color: $txt-white;
+          outline: none;
+          border: none;
+          font-weight: 500;
+          cursor: pointer;
+          box-shadow: $box-shadow;
+          transition: all 0.5s;
+          border-radius: 30px;
+          font-size: 16px;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:hover {
+            background: #f53677;
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+          }
+
+          .loading-circle {
+            margin-right: 10px;
+            border: 2px solid #fff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            order: -1;
+          }
+
+          .logging-in-text {
+            color: #fff;
+            font-weight: bold;
+          }
+
+          @keyframes spin {
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
         }
       }
-    }
 
-    // Error styles
-    .error {
-      color: red !important;
-      font-size: 12px !important;
-      margin-top: 5px;
-      display: block;
-    }
-    .error-outline input {
-      border: 1px solid red !important;
-      outline: none;
-    }
-    // Valid styles
-    .valid-outline input {
-      border: 1px solid green !important;
-      outline: none;
+      // Error styles
+      .error {
+        color: red !important;
+        font-size: 12px !important;
+        margin-top: 5px;
+        display: block;
+      }
+      .error-outline input {
+        border: 1px solid red !important;
+        outline: none;
+      }
     }
   }
 }
 
 /* Responsive styles */
 @include tablet {
-  section .img__bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  section .content {
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    .form {
+  section {
+    .img__bg {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 40px;
-      background: rgba(255 255 255 / 0.9);
-      margin: 50px;
-      h3 {
-        color: $main-color;
-        text-align: center;
-        margin: 30px 0 10px;
-        font-weight: 500;
+      height: 100%;
+    }
+    .content {
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      .form {
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        margin: 50px;
+        h3 {
+          color: $main-color;
+          text-align: center;
+          margin: 30px 0 10px;
+          font-weight: 500;
+        }
       }
     }
   }
 }
 
-/* Additional responsive styles for the loading circle */
-@include desktop {
-  section .content .form .input__form {
-    .loading-circle {
-      left: 70px;
-      width: 14px;
-      height: 14px;
-    }
-  }
-}
-
-@include tablet {
-  section .content .form .input__form {
-    .loading-circle {
-      left: 170px;
-      width: 14px;
-      height: 14px;
-    }
-  }
-}
-
 @include mobile {
-  section .content .form .input__form {
-    input[type="submit"] {
-      font-size: 14px;
+  section {
+    .img__bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
-    .loading-circle {
-      left: 60px;
-      width: 12px;
-      height: 12px;
+    .content {
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      .form {
+        width: 100%;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        margin: 50px;
+        h3 {
+          color: $main-color;
+          text-align: center;
+          margin: 30px 0 10px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .input__form {
+    .submit-button {
+      font-size: 14px;
+
+      .loading-circle {
+        width: 14px;
+        height: 14px;
+        margin-right: 8px;
+      }
     }
   }
 }
