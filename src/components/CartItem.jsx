@@ -40,7 +40,7 @@ const CartItem = (props) => {
         <div className="cart__item__info__name">
           <h3>Product</h3>
           <Link to={`/catalog/${item.slug}`}>
-            {`${item.product?.title} - ${item.color} - ${item.size}`}
+            {`${item.product?.title} - ${item.size.toUpperCase()}`}
           </Link>
         </div>
         <div className="cart__item__info__price">
