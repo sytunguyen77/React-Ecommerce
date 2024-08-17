@@ -10,39 +10,34 @@ const ResetPasswordForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // State management for form errors, loading state, and button click
+  // State for form data, errors, and UI feedback
+  const [formData, setFormData] = useState({
+    email: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
   const [errors, setErrors] = useState({});
+  const [outlineErrors, setOutlineErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
 
-  // Form validation function
-  const validate = (data) => {
-    const errors = {};
-
-    if (!data.username) {
-      errors.username = "Username is required.";
-    }
-
-    if (!data.newPassword) {
-      errors.newPassword = "New Password is required.";
-    }
-
-    if (!data.confirmPassword) {
-      errors.confirmPassword = "Confirm Password is required.";
-    } else if (data.newPassword !== data.confirmPassword) {
-      errors.confirmPassword = "Passwords do not match.";
-    }
-
-    return errors;
+  // Email validation function
+  const validateEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
   };
 
-  // Handle input changes and clear errors
+  // Handle input changes and clear all errors
   const handleInputChange = (e) => {
-    const { name } = e.target;
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: undefined,
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
     }));
+
+    // Clear all errors and outline errors when user types in any field
+    setErrors({});
+    setOutlineErrors({});
   };
 
   // Handle form submission
@@ -51,48 +46,71 @@ const ResetPasswordForm = () => {
     setButtonClicked(true);
     setIsLoading(true);
 
-    // Get form data
-    const formData = new FormData(event.target);
-    const data = {
-      username: formData.get("username"),
-      newPassword: formData.get("newPassword"),
-      confirmPassword: formData.get("confirmPassword"),
-    };
+    // Validate form inputs
+    const validationErrors = {};
+    const newOutlineErrors = {};
 
-    // Validate form data
-    const validationErrors = validate(data);
+    if (!formData.email) {
+      validationErrors.email = "Email is required.";
+      newOutlineErrors.email = true;
+    } else if (!validateEmail(formData.email)) {
+      validationErrors.email = "Please enter a valid email address.";
+      newOutlineErrors.email = true;
+    }
+
+    if (!formData.newPassword) {
+      validationErrors.newPassword = "New Password is required.";
+      newOutlineErrors.newPassword = true;
+    }
+
+    if (!formData.confirmPassword) {
+      validationErrors.confirmPassword = "Confirm Password is required.";
+      newOutlineErrors.confirmPassword = true;
+    } else if (formData.newPassword !== formData.confirmPassword) {
+      validationErrors.confirmPassword = "Passwords do not match.";
+      newOutlineErrors.confirmPassword = true;
+    }
+
+    // If there are validation errors, display them and stop submission
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      setOutlineErrors(newOutlineErrors);
       setIsLoading(false);
       setButtonClicked(false);
       return;
     }
 
-    // Check if the user exists
+    // Check if user exists in local storage
     const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
     const userExists = existingUsers.some(
-      (user) => user.username === data.username
+      (user) => user.email === formData.email
     );
 
     if (!userExists) {
-      setErrors({ username: "Username does not exist." });
+      setErrors({ email: "Email does not exist." });
+      setOutlineErrors({ email: true });
       setIsLoading(false);
       setButtonClicked(false);
       return;
     }
 
-    // Simulate an API call or async operation
+    // Clear all errors before resetting password
+    setErrors({});
+    setOutlineErrors({});
+
+    // Simulate API call with setTimeout
     setTimeout(() => {
       // Dispatch reset password action
       const result = dispatch(
         resetPassword({
-          username: data.username,
-          newPassword: data.newPassword,
+          email: formData.email,
+          newPassword: formData.newPassword,
         })
       );
 
       if (result.error) {
-        setErrors({ username: result.error });
+        setErrors({ email: result.error });
+        setOutlineErrors({ email: true });
         setIsLoading(false);
         setButtonClicked(false);
         return;
@@ -107,7 +125,7 @@ const ResetPasswordForm = () => {
         setButtonClicked(false);
         history.push("/login");
       }, 2000);
-    }, 1000); // Simulate a 1-second delay
+    }, 1000);
   };
 
   return (
@@ -118,28 +136,27 @@ const ResetPasswordForm = () => {
           <div className="form">
             <h2>Reset Password</h2>
             <form id="form__resetPassword" onSubmit={handleSubmit}>
-              {/* Username input field */}
+              {/* Email input field */}
               <div
                 className={`input__form ${
-                  errors.username ? "error-outline" : ""
+                  outlineErrors.email ? "error-outline" : ""
                 }`}
               >
-                <span>Username</span>
+                <span>Email</span>
                 <input
                   type="text"
-                  name="username"
-                  placeholder="Username"
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
                   onChange={handleInputChange}
                 />
-                {errors.username && (
-                  <span className="error">{errors.username}</span>
-                )}
+                {errors.email && <span className="error">{errors.email}</span>}
               </div>
 
               {/* New Password input field */}
               <div
                 className={`input__form ${
-                  errors.newPassword ? "error-outline" : ""
+                  outlineErrors.newPassword ? "error-outline" : ""
                 }`}
               >
                 <span>New Password</span>
@@ -147,6 +164,7 @@ const ResetPasswordForm = () => {
                   type="password"
                   name="newPassword"
                   placeholder="New Password"
+                  value={formData.newPassword}
                   onChange={handleInputChange}
                 />
                 {errors.newPassword && (
@@ -157,7 +175,7 @@ const ResetPasswordForm = () => {
               {/* Confirm New Password input field */}
               <div
                 className={`input__form ${
-                  errors.confirmPassword ? "error-outline" : ""
+                  outlineErrors.confirmPassword ? "error-outline" : ""
                 }`}
               >
                 <span>Confirm New Password</span>
@@ -165,6 +183,7 @@ const ResetPasswordForm = () => {
                   type="password"
                   name="confirmPassword"
                   placeholder="Confirm New Password"
+                  value={formData.confirmPassword}
                   onChange={handleInputChange}
                 />
                 {errors.confirmPassword && (

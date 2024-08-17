@@ -10,79 +10,88 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // State management for form errors, valid inputs, loading state, and button click
+  // State for form data, errors, valid inputs, and UI feedback
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phoneNumber: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [errors, setErrors] = useState({});
   const [validInputs, setValidInputs] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
 
-  // Form validation function
-  const validate = (formData) => {
+  // Validation function for all form inputs
+  const validate = (data) => {
     const errors = {};
     const validInputs = {};
 
     // Regular expressions for input validation
-    const usernamePattern = /^[a-zA-Z0-9_]{6,}$/;
+    const namePattern = /^[a-zA-Z\s]{2,}$/;
     const phonePattern =
       /^(\+?\d{1,2})?\s?(\(?\d{3}\)?|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordPattern =
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
 
-    // Validate username
-    if (!formData.username) {
-      errors.username = "Username is required.";
-    } else if (!usernamePattern.test(formData.username)) {
-      errors.username =
-        "Username must be at least 6 characters and contain only letters, numbers, or underscores.";
+    // Validate Full Name
+    if (!data.fullName) {
+      errors.fullName = "Full Name is required.";
+    } else if (!namePattern.test(data.fullName)) {
+      errors.fullName = "Full Name must contain at least 2 letters.";
     } else {
-      validInputs.username = true;
+      validInputs.fullName = true;
     }
 
-    // Validate phone number
-    if (!formData.phoneNumber) {
+    // Validate Phone Number
+    if (!data.phoneNumber) {
       errors.phoneNumber = "Phone number is required.";
-    } else if (!phonePattern.test(formData.phoneNumber)) {
+    } else if (!phonePattern.test(data.phoneNumber)) {
       errors.phoneNumber = "Please enter a valid 10-digit phone number.";
     } else {
       validInputs.phoneNumber = true;
     }
 
-    // Validate email
-    if (!formData.email) {
+    // Validate Email
+    if (!data.email) {
       errors.email = "Email is required.";
-    } else if (!emailPattern.test(formData.email)) {
+    } else if (!emailPattern.test(data.email)) {
       errors.email = "Please enter a valid email address.";
     } else {
       validInputs.email = true;
     }
 
-    // Validate password
-    if (!formData.password) {
+    // Validate Password
+    if (!data.password) {
       errors.password = "Password is required.";
-    } else if (!passwordPattern.test(formData.password)) {
+    } else if (!passwordPattern.test(data.password)) {
       errors.password =
         "Password must be at least 6 characters long, and include at least one uppercase letter, one lowercase letter, one number, and one special character.";
     } else {
       validInputs.password = true;
     }
 
-    // Validate confirm password
-    if (!formData.confirmPassword) {
+    // Validate Confirm Password
+    if (!data.confirmPassword) {
       errors.confirmPassword = "Please confirm your password.";
-    } else if (formData.password !== formData.confirmPassword) {
+    } else if (data.password !== data.confirmPassword) {
       errors.confirmPassword = "Passwords do not match.";
     } else {
       validInputs.confirmPassword = true;
     }
 
-    setValidInputs(validInputs);
-    return errors;
+    return { errors, validInputs };
   };
 
-  // Handle input changes and clear errors
+  // Handle input changes and clear corresponding errors
   const handleInputChange = (e) => {
-    const { name } = e.target;
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: undefined,
@@ -99,47 +108,41 @@ const RegisterForm = () => {
     setButtonClicked(true);
     setIsLoading(true);
 
-    // Get form data
-    const formData = new FormData(event.target);
-    const data = {
-      username: formData.get("name"),
-      phoneNumber: formData.get("phoneNumber"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-      confirmPassword: formData.get("confirm"),
-    };
-
     // Validate form data
-    const validationErrors = validate(data);
+    const { errors, validInputs } = validate(formData);
 
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      setValidInputs(validInputs);
       setIsLoading(false);
       setButtonClicked(false);
       return;
     }
 
-    // Check if username already exists
+    // Check if user already exists
     const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
     const userExists = existingUsers.some(
-      (user) => user.username === data.username
+      (user) => user.email === formData.email
     );
 
     if (userExists) {
-      setErrors({ username: "Username already exists." });
+      setErrors({ email: "Email already exists." });
       setIsLoading(false);
       setButtonClicked(false);
       return;
     }
+
+    // Clear all errors before successful registration
+    setErrors({});
 
     // Add new user to localStorage
     const updatedUsers = [
       ...existingUsers,
       {
-        username: data.username,
-        phoneNumber: data.phoneNumber,
-        email: data.email,
-        password: data.password,
+        fullName: formData.fullName,
+        phoneNumber: formData.phoneNumber,
+        email: formData.email,
+        password: formData.password,
       },
     ];
     localStorage.setItem("users", JSON.stringify(updatedUsers));
@@ -147,10 +150,10 @@ const RegisterForm = () => {
     // Dispatch register action
     dispatch(
       register({
-        username: data.username,
-        phoneNumber: data.phoneNumber,
-        email: data.email,
-        password: data.password,
+        fullName: formData.fullName,
+        phoneNumber: formData.phoneNumber,
+        email: formData.email,
+        password: formData.password,
       })
     );
 
@@ -176,49 +179,27 @@ const RegisterForm = () => {
           <div className="form">
             <h2>Register</h2>
             <form id="form__register" onSubmit={handleSubmit}>
-              {/* Username input field */}
+              {/* Full Name input field */}
               <div
                 className={`input__form ${
-                  errors.username
+                  errors.fullName
                     ? "error-outline"
-                    : validInputs.username
+                    : validInputs.fullName
                     ? "valid-outline"
                     : ""
                 }`}
               >
-                <span>Username</span>
+                <span>Full Name</span>
                 <input
                   type="text"
-                  name="name"
-                  id="user"
-                  placeholder="Username"
+                  name="fullName"
+                  id="fullName"
+                  placeholder="Full Name"
+                  value={formData.fullName}
                   onChange={handleInputChange}
                 />
-                {errors.username && (
-                  <span className="error">{errors.username}</span>
-                )}
-              </div>
-
-              {/* Phone number input field */}
-              <div
-                className={`input__form ${
-                  errors.phoneNumber
-                    ? "error-outline"
-                    : validInputs.phoneNumber
-                    ? "valid-outline"
-                    : ""
-                }`}
-              >
-                <span>Phone Number</span>
-                <input
-                  type="tel"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  placeholder="Phone"
-                  onChange={handleInputChange}
-                />
-                {errors.phoneNumber && (
-                  <span className="error">{errors.phoneNumber}</span>
+                {errors.fullName && (
+                  <span className="error">{errors.fullName}</span>
                 )}
               </div>
 
@@ -238,9 +219,34 @@ const RegisterForm = () => {
                   id="email"
                   name="email"
                   placeholder="Email"
+                  value={formData.email}
                   onChange={handleInputChange}
                 />
                 {errors.email && <span className="error">{errors.email}</span>}
+              </div>
+
+              {/* Phone Number input field */}
+              <div
+                className={`input__form ${
+                  errors.phoneNumber
+                    ? "error-outline"
+                    : validInputs.phoneNumber
+                    ? "valid-outline"
+                    : ""
+                }`}
+              >
+                <span>Phone Number</span>
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  placeholder="Phone"
+                  value={formData.phoneNumber}
+                  onChange={handleInputChange}
+                />
+                {errors.phoneNumber && (
+                  <span className="error">{errors.phoneNumber}</span>
+                )}
               </div>
 
               {/* Password input field */}
@@ -259,6 +265,7 @@ const RegisterForm = () => {
                   id="password"
                   name="password"
                   placeholder="Password"
+                  value={formData.password}
                   onChange={handleInputChange}
                 />
                 {errors.password && (
@@ -266,7 +273,7 @@ const RegisterForm = () => {
                 )}
               </div>
 
-              {/* Confirm password input field */}
+              {/* Confirm Password input field */}
               <div
                 className={`input__form ${
                   errors.confirmPassword
@@ -281,7 +288,8 @@ const RegisterForm = () => {
                   type="password"
                   placeholder="Confirm Password"
                   id="confirm"
-                  name="confirm"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
                   onChange={handleInputChange}
                 />
                 {errors.confirmPassword && (
@@ -307,7 +315,7 @@ const RegisterForm = () => {
                 </button>
               </div>
 
-              {/* Links to login and home page */}
+              {/* Navigation links */}
               <div className="input__form">
                 <Link to="/login">Log In</Link>
               </div>

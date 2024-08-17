@@ -135,14 +135,7 @@ const Header = () => {
               <i className="bx bx-search"></i>
             </div>
             <SearchModal isOpen={isOpen} setIsOpen={setIsOpen} />
-            <div className="header__menu__item header__menu__right__item header__menu__right__cart">
-              <Link to="/cart">
-                <i className="bx bx-shopping-bag"></i>
-                <span className="header__menu__right__count">
-                  {totalCartItems}
-                </span>
-              </Link>
-            </div>
+
             {/* User icon and actions */}
             <div className="header__menu__item header__menu__right__item header__menu__right__user">
               <i
@@ -153,7 +146,7 @@ const Header = () => {
                   {isAuthenticated ? (
                     <>
                       <li>
-                        <span>Welcome, {user?.username}</span>
+                        <span>Welcome, {user?.fullName}</span>
                       </li>
                       <li onClick={handleLogout}>
                         <i className="bx bx-log-out-circle"></i>
@@ -178,6 +171,14 @@ const Header = () => {
                   )}
                 </ul>
               </div>
+            </div>
+            <div className="header__menu__item header__menu__right__item header__menu__right__cart">
+              <Link to="/cart">
+                <i className="bx bx-shopping-bag"></i>
+                <span className="header__menu__right__count">
+                  {totalCartItems}
+                </span>
+              </Link>
             </div>
           </div>
         </div>

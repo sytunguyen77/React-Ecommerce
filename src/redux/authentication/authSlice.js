@@ -15,7 +15,7 @@ export const authSlice = createSlice({
       state.user = action.payload;
 
       const savedCartItems = localStorage.getItem(
-        `cartItems_${state.user.username}`
+        `cartItems_${state.user.email}`
       );
       if (savedCartItems) {
         setCartItems(JSON.parse(savedCartItems));
@@ -25,7 +25,7 @@ export const authSlice = createSlice({
       if (state.user) {
         const currentCartItems = JSON.parse(localStorage.getItem("cartItems"));
         localStorage.setItem(
-          `cartItems_${state.user.username}`,
+          `cartItems_${state.user.email}`,
           JSON.stringify(currentCartItems)
         );
       }
@@ -40,11 +40,9 @@ export const authSlice = createSlice({
       state.user = action.payload;
     },
     resetPassword: (state, action) => {
-      const { username, newPassword } = action.payload;
+      const { email, newPassword } = action.payload;
       const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-      const userIndex = existingUsers.findIndex(
-        (user) => user.username === username
-      );
+      const userIndex = existingUsers.findIndex((user) => user.email === email);
 
       if (userIndex !== -1) {
         existingUsers[userIndex].password = newPassword;

@@ -11,17 +11,19 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // State management for form errors, loading state, and button click
+  // State for form data and UI feedback
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
 
-  // Form validation function
+  // Validation function for form inputs
   const validate = (data) => {
     const errors = {};
-
-    if (!data.username) {
-      errors.username = "Username is required.";
+    if (!data.email) {
+      errors.email = "Email is required.";
+    } else if (!data.email.includes("@")) {
+      errors.email = "Please include an '@' in the email address.";
     }
 
     if (!data.password) {
@@ -31,9 +33,15 @@ const LoginForm = () => {
     return errors;
   };
 
-  // Clear errors when user starts typing
+  // Handle input changes and clear corresponding errors
   const handleInputChange = (e) => {
-    const { name } = e.target;
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+
+    // Clear errors when user types
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: undefined,
@@ -46,15 +54,8 @@ const LoginForm = () => {
     setButtonClicked(true);
     setIsLoading(true);
 
-    // Get form data
-    const formData = new FormData(event.target);
-    const data = {
-      username: formData.get("username"),
-      password: formData.get("password"),
-    };
-
     // Validate form data
-    const validationErrors = validate(data);
+    const validationErrors = validate(formData);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       setIsLoading(false);
@@ -62,24 +63,27 @@ const LoginForm = () => {
       return;
     }
 
-    // Check if user exists
+    // Check if user exists in local storage
     const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-    const user = existingUsers.find((user) => user.username === data.username);
+    const user = existingUsers.find((user) => user.email === formData.email);
 
     if (!user) {
-      setErrors({ username: "Username does not exist." });
+      setErrors({ email: "Email does not exist." });
       setIsLoading(false);
       setButtonClicked(false);
       return;
     }
 
     // Check if password is correct
-    if (user.password !== data.password) {
+    if (user.password !== formData.password) {
       setErrors({ password: "Incorrect password." });
       setIsLoading(false);
       setButtonClicked(false);
       return;
     }
+
+    // Clear any existing errors before successful login
+    setErrors({});
 
     // Dispatch login action
     dispatch(login(user));
@@ -106,22 +110,19 @@ const LoginForm = () => {
           <div className="form">
             <h2>Login</h2>
             <form id="form__login" onSubmit={handleSubmit}>
-              {/* Username input field */}
+              {/* Email input field */}
               <div
-                className={`input__form ${
-                  errors.username ? "error-outline" : ""
-                }`}
+                className={`input__form ${errors.email ? "error-outline" : ""}`}
               >
-                <span>Username</span>
+                <span>Email</span>
                 <input
                   type="text"
-                  name="username"
-                  placeholder="Username"
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
                   onChange={handleInputChange}
                 />
-                {errors.username && (
-                  <span className="error">{errors.username}</span>
-                )}
+                {errors.email && <span className="error">{errors.email}</span>}
               </div>
 
               {/* Password input field */}
@@ -135,6 +136,7 @@ const LoginForm = () => {
                   type="password"
                   name="password"
                   placeholder="Password"
+                  value={formData.password}
                   onChange={handleInputChange}
                 />
                 {errors.password && (
