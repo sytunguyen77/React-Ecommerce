@@ -127,11 +127,25 @@
       }
 
       &__quantity {
+        @include mobile {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+        }
+
+        h3 {
+          @include mobile {
+            margin-bottom: 10px;
+          }
+        }
+
         .product__info__item__quantity {
           @include flex(center, center);
 
           @include mobile {
             justify-content: center;
+            width: auto;
           }
 
           &__btn {
