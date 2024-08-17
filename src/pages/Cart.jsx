@@ -21,7 +21,7 @@ const Cart = () => {
   const [totalProducts, setTotalProducts] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  // Define effect to update cart products, total products count, and total price whenever cart items change
+  // Effect to update cart products, total products count, and total price
   useEffect(() => {
     setCartProducts(productData.getCartItemsInfo(cartItems));
     setTotalPrice(
@@ -46,6 +46,7 @@ const Cart = () => {
       <div className="cart">
         {cartProducts.length > 0 ? (
           <>
+            {/* Cart info section */}
             <div className="cart__info">
               <div className="cart__info__txt">
                 <p>You have {totalProducts} products in your shopping cart</p>
@@ -55,7 +56,7 @@ const Cart = () => {
                 </div>
                 <div className="cart__info__btn">
                   <Button size="block" onClick={notify}>
-                    Checkout
+                    Check out
                   </Button>
                   <Link to="/catalog">
                     <Button size="block">Continue Shopping</Button>
@@ -63,6 +64,7 @@ const Cart = () => {
                 </div>
               </div>
             </div>
+            {/* Cart list section */}
             <div className="cart__list">
               {/* Render a CartItem component for each product in the cart */}
               {cartProducts.map((item, index) => (
@@ -71,6 +73,7 @@ const Cart = () => {
             </div>
           </>
         ) : (
+          // Empty cart display
           <div className="cart__empty">
             <div className="cart__empty__img">
               <img src={empty} alt="" />

@@ -13,7 +13,6 @@ import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 const ProductView = (props) => {
   const dispatch = useDispatch();
 
-  // Ensure product prop is defined with default values
   let product = props.product || {
     price: 0,
     title: "",
@@ -21,7 +20,6 @@ const ProductView = (props) => {
     size: [],
   };
 
-  // State variables
   const [previewImg, setPreviewImg] = useState(product.image01);
   const [color, setColor] = useState(undefined);
   const [size, setSize] = useState(undefined);
@@ -29,7 +27,6 @@ const ProductView = (props) => {
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isBuying, setIsBuying] = useState(false);
 
-  // Update quantity
   const updateQuantity = (type) => {
     if (type === "plus") {
       setQuantity(quantity + 1);
@@ -38,7 +35,6 @@ const ProductView = (props) => {
     }
   };
 
-  // Reset states when product changes
   useEffect(() => {
     setPreviewImg(product.image01);
     setQuantity(1);
@@ -46,7 +42,6 @@ const ProductView = (props) => {
     setSize(undefined);
   }, [product]);
 
-  // Check if color and size are selected
   const check = () => {
     if (color === undefined) {
       toast.error("Please choose a color");
@@ -59,7 +54,6 @@ const ProductView = (props) => {
     return true;
   };
 
-  // Add the selected product to the cart
   const addToCart = () => {
     if (check()) {
       setIsAddingToCart(true);
@@ -79,7 +73,6 @@ const ProductView = (props) => {
     }
   };
 
-  // Add to cart and redirect to cart page
   const goToCart = () => {
     if (check()) {
       setIsBuying(true);
@@ -196,7 +189,7 @@ const ProductView = (props) => {
             {isAddingToCart ? (
               <>
                 <span className="loading-circle"></span>
-                <span>Adding...</span>
+                <span className="loading-text">Adding...</span>
               </>
             ) : (
               "Add To Bag"
@@ -206,7 +199,7 @@ const ProductView = (props) => {
             {isBuying ? (
               <>
                 <span className="loading-circle"></span>
-                <span>Buying...</span>
+                <span className="loading-text">Buying...</span>
               </>
             ) : (
               "Buy Now"

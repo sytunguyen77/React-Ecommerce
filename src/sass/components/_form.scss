@@ -81,7 +81,7 @@ section {
           align-items: center;
 
           &:hover {
-            background: #f53677;
+            background: $btn-hover-color;
           }
 
           &:disabled {
@@ -91,7 +91,7 @@ section {
 
           .loading-circle {
             margin-right: 10px;
-            border: 2px solid #fff;
+            border: 2px solid white;
             border-top: 2px solid transparent;
             border-radius: 50%;
             width: 16px;
@@ -101,7 +101,7 @@ section {
           }
 
           .logging-in-text {
-            color: #fff;
+            color: white;
             font-weight: bold;
           }
 

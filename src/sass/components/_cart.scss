@@ -7,7 +7,7 @@
   }
 
   &__info {
-    // width: 40%;
+    width: 40%;
     margin-right: 30px;
     margin-top: 30px;
     padding: 20px;
@@ -53,49 +53,53 @@
     flex-grow: 1;
   }
 
-  &__empty {
-    position: absolute;
-    transform: translate(-50%, 50%);
-    top: 50%;
-    left: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    &__img {
-      margin-bottom: 30px;
-    }
-
-    &__txt {
-      margin-bottom: 30px;
-    }
-  }
-
   &__item {
-    @include flex(center, flex-start);
+    @include flex(flex-start, space-between);
     margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid $main-color;
+    border-radius: 8px;
+
+    @include mobile {
+      flex-direction: column;
+      align-items: center;
+    }
 
     &__image {
       margin-right: 20px;
 
       img {
         height: 150px;
+        object-fit: cover;
+      }
+
+      @include mobile {
+        margin-right: 0;
+        margin-bottom: 20px;
       }
     }
 
     &__info {
-      @include flex(center, space-between);
+      @include flex(flex-start, space-between);
       flex-grow: 1;
+      width: 100%;
 
       @include mobile {
-        @include flex(flex-start, center);
         flex-direction: column;
+        align-items: center;
 
         & > * {
-          margin-bottom: 10px;
+          margin-bottom: 15px;
+          width: 100%;
+          text-align: center;
         }
+      }
+
+      h3 {
+        font-size: 1rem;
+        margin-bottom: 5px;
+        color: $txt-second-color;
+        text-align: center;
       }
 
       &__name {
@@ -104,11 +108,58 @@
         @include mobile {
           width: 100%;
         }
+
+        a {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: $txt-main-color;
+
+          &:hover {
+            color: $main-color;
+          }
+        }
       }
 
-      &__name,
       &__price {
         font-size: 1.25rem;
+        font-weight: 600;
+        color: $main-color;
+      }
+
+      &__quantity {
+        .product__info__item__quantity {
+          @include flex(center, center);
+
+          @include mobile {
+            justify-content: center;
+          }
+
+          &__btn {
+            @include flex(center, center);
+            width: 30px;
+            height: 30px;
+            border: 1px solid $txt-second-color;
+            cursor: pointer;
+
+            i {
+              font-size: 1.25rem;
+            }
+
+            &:hover {
+              background-color: $main-color;
+              color: $txt-white;
+            }
+          }
+
+          &__input {
+            @include flex(center, center);
+            height: 30px;
+            width: 40px;
+            font-size: 1.25rem;
+            border-top: 1px solid $txt-second-color;
+            border-bottom: 1px solid $txt-second-color;
+          }
+        }
       }
 
       &__del {
@@ -122,6 +173,47 @@
           }
         }
       }
+    }
+  }
+
+  &__empty {
+    width: 100%;
+    height: calc(100vh - #{$header-height} - 2rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    @include tablet {
+      height: calc(100vh - #{$header-tablet-height} - 2rem);
+    }
+
+    @include mobile {
+      height: calc(100vh - #{$header-mobile-height} - 2rem);
+    }
+
+    &__img {
+      max-width: 300px;
+      margin-bottom: 2rem;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    &__txt {
+      margin-bottom: 2rem;
+
+      h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .btn {
+      max-width: 200px;
     }
   }
 }

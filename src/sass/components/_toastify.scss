@@ -1,0 +1,61 @@
+.Toastify__toast-container {
+  width: auto !important;
+  max-width: 90%;
+
+  @include mobile {
+    width: 50% !important;
+    right: 0 !important;
+    left: auto !important; // Override any default left positioning
+    margin-right: 5%; // Add some margin from the right edge
+  }
+}
+
+.Toastify__toast {
+  font-family: "Roboto", sans-serif;
+  background-color: $main-bg;
+  color: $txt-main-color;
+  box-shadow: $box-shadow;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  word-break: break-word;
+
+  &--success {
+    background-color: map-get($colors, "blue");
+    color: $txt-white;
+  }
+
+  &--error {
+    background-color: map-get($colors, "red");
+    color: $txt-white;
+  }
+
+  &--info {
+    background-color: map-get($colors, "yellow");
+    color: $txt-main-color;
+  }
+
+  &--warning {
+    background-color: map-get($colors, "orange");
+    color: $txt-main-color;
+  }
+}
+
+.Toastify__toast-body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.Toastify__close-button {
+  color: currentColor;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.Toastify__progress-bar {
+  background-color: rgba($color: #fff, $alpha: 0.7);
+}
