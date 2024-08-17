@@ -13,6 +13,7 @@ import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 const ProductView = (props) => {
   const dispatch = useDispatch();
 
+  //  Default product object if props.product is undefined
   let product = props.product || {
     price: 0,
     title: "",
@@ -20,6 +21,7 @@ const ProductView = (props) => {
     size: [],
   };
 
+  //  State variables for product selection
   const [previewImg, setPreviewImg] = useState(product.image01);
   const [color, setColor] = useState(undefined);
   const [size, setSize] = useState(undefined);
@@ -27,6 +29,7 @@ const ProductView = (props) => {
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isBuying, setIsBuying] = useState(false);
 
+  //  Function to update quantity
   const updateQuantity = (type) => {
     if (type === "plus") {
       setQuantity(quantity + 1);
@@ -35,6 +38,7 @@ const ProductView = (props) => {
     }
   };
 
+  //  Reset state when product changes
   useEffect(() => {
     setPreviewImg(product.image01);
     setQuantity(1);
@@ -42,6 +46,7 @@ const ProductView = (props) => {
     setSize(undefined);
   }, [product]);
 
+  //  Validation function
   const check = () => {
     if (color === undefined) {
       toast.error("Please choose a color");
@@ -54,6 +59,7 @@ const ProductView = (props) => {
     return true;
   };
 
+  //  Function to add item to cart
   const addToCart = () => {
     if (check()) {
       setIsAddingToCart(true);
@@ -73,6 +79,7 @@ const ProductView = (props) => {
     }
   };
 
+  //  Function to add item to cart and redirect to cart page
   const goToCart = () => {
     if (check()) {
       setIsBuying(true);
@@ -96,7 +103,9 @@ const ProductView = (props) => {
   return (
     <div className="product">
       <ToastContainer />
+      {/*  Product image section */}
       <div className="product__images">
+        {/* Image list for selection */}
         <div className="product__images__list">
           <div
             className="product__images__list__item"
@@ -111,9 +120,11 @@ const ProductView = (props) => {
             <img src={product.image03} alt="" />
           </div>
         </div>
+        {/* Main product image with zoom functionality */}
         <div className="product__images__main">
           <InnerImageZoom src={previewImg} alt="" />
         </div>
+        {/* Product description for desktop view */}
         <div className="product-description">
           <div className="product-description__title">Product details</div>
           <div
@@ -122,11 +133,13 @@ const ProductView = (props) => {
           ></div>
         </div>
       </div>
+      {/*  Product info section */}
       <div className="product__info">
         <h1 className="product__info__title">{product.title}</h1>
         <div className="product__info__item">
           <span className="product__info__item__price">${product.price}</span>
         </div>
+        {/* Color selection */}
         <div className="product__info__item">
           <div className="product__info__item__title">Color</div>
           <div className="product__info__item__list">
@@ -143,6 +156,7 @@ const ProductView = (props) => {
             ))}
           </div>
         </div>
+        {/* Size selection */}
         <div className="product__info__item">
           <div className="product__info__item__title">Size</div>
           <div className="product__info__item__list">
@@ -161,6 +175,7 @@ const ProductView = (props) => {
             ))}
           </div>
         </div>
+        {/* Quantity selection */}
         <div className="product__info__item">
           <div className="product__info__item__title">Quantity</div>
           <div className="product__info__item__quantity">
@@ -181,9 +196,11 @@ const ProductView = (props) => {
             </div>
           </div>
         </div>
+        {/* Payment options image */}
         <div className="product__info__item__payment">
           <img src={payment} alt="" />
         </div>
+        {/*  Add to cart and Buy now buttons */}
         <div className="product__info__item">
           <Button onClick={addToCart} disabled={isAddingToCart}>
             {isAddingToCart ? (
@@ -207,6 +224,7 @@ const ProductView = (props) => {
           </Button>
         </div>
       </div>
+      {/* Product description for mobile view */}
       <div className="product-description mobile">
         <div className="product-description__title">Product Details</div>
         <div

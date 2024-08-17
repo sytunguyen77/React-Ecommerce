@@ -75,18 +75,27 @@
           width: 300px;
           transform: translate(-8px, 10px);
         }
+        @include mobile {
+          width: 250px;
+        }
       }
 
       &__price {
         color: $main-color;
         font-size: 2rem;
         font-weight: 600;
+        @include mobile {
+          font-size: 1.8rem;
+        }
       }
 
       &__title {
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 1rem;
+        @include mobile {
+          font-size: 1.3em;
+        }
       }
 
       &__list {
@@ -141,6 +150,7 @@
 
       &__quantity {
         @include flex(flex-start, flex-start);
+        width: 100px;
 
         &__btn {
           @include flex(center, center);
