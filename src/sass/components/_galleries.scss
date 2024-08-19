@@ -1,6 +1,93 @@
 .galleries {
-  @include flex(center, center);
-  &__img {
-    // max-width: 700px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__hero {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      position: relative;
+    }
+
+    &-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+
+    &-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: $txt-white;
+      font-size: 2rem;
+      font-weight: bolder;
+      text-align: center;
+      text-transform: lowercase;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      z-index: 10;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: $txt-white;
+    }
+
+    .swiper-pagination-bullet {
+      background: $txt-white;
+    }
+  }
+
+  &__content {
+    display: flex;
+    width: 100%; // Make it full width
+    padding: 1rem 0; // Remove horizontal padding
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  &__grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    width: 100%; // Ensure the grid takes full width
+    // padding: 0 1rem; // Add horizontal padding to the grid instead
+
+    &-item {
+      position: relative;
+      padding-top: 133.33%;
+      overflow: hidden;
+    }
+
+    &-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
   }
 }
