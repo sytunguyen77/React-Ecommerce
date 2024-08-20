@@ -1,9 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import Helmet from "../components/Helmet";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: "",
+      }));
+    }
+  };
+
+  const validateForm = () => {
+    let tempErrors = {};
+    if (!formData.fullName.trim())
+      tempErrors.fullName = "Full name is required";
+    if (!formData.email.trim()) tempErrors.email = "Email is required";
+    if (!formData.message.trim()) tempErrors.message = "Message is required";
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (validateForm()) {
+      // Form is valid, proceed with submission
+      toast.success("Message has been sent successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      // Reset form after successful submission
+      setFormData({ fullName: "", email: "", message: "" });
+    } else {
+      // Form is invalid, show error toast
+      toast.error("Please fill in all required fields", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   return (
@@ -17,22 +76,37 @@ const Contact = () => {
               <input
                 type="text"
                 name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
                 placeholder="Enter your full name"
-                required
+                className={errors.fullName ? "error-input" : ""}
               />
+              {errors.fullName && (
+                <p className="error-text">{errors.fullName}</p>
+              )}
             </div>
             <div className="input-form">
               <span>Email</span>
               <input
                 type="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Enter your email"
-                required
+                className={errors.email ? "error-input" : ""}
               />
+              {errors.email && <p className="error-text">{errors.email}</p>}
             </div>
             <div className="input-form">
               <span>Enter your message</span>
-              <textarea name="message" placeholder="Your message" required />
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Your message"
+                className={errors.message ? "error-input" : ""}
+              />
+              {errors.message && <p className="error-text">{errors.message}</p>}
             </div>
             <div className="input-form">
               <input type="submit" value="Send" />
@@ -51,6 +125,7 @@ const Contact = () => {
           ></iframe>
         </div>
       </div>
+      <ToastContainer />
     </Helmet>
   );
 };

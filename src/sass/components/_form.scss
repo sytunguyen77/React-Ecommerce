@@ -63,7 +63,10 @@ section {
         }
 
         .submit-button {
-          width: 100%;
+          width: auto;
+          min-width: 120px;
+          max-width: 200px;
+          margin: 0 auto;
           padding: 10px 20px;
           background: $btn-main-bg;
           color: $txt-white;
@@ -72,8 +75,8 @@ section {
           font-weight: 500;
           cursor: pointer;
           box-shadow: $box-shadow;
-          transition: all 0.5s;
-          border-radius: 30px;
+          transition: all 0.3s ease;
+          border-radius: 25px;
           font-size: 16px;
           position: relative;
           display: flex;
@@ -82,15 +85,26 @@ section {
 
           &:hover {
             background: $btn-hover-color;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          }
+
+          &:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
           }
 
           &:disabled {
             cursor: not-allowed;
             opacity: 0.7;
+            &:hover {
+              transform: none;
+              box-shadow: $box-shadow;
+            }
           }
 
           .loading-circle {
-            margin-right: 10px;
+            margin-right: 8px;
             border: 2px solid white;
             border-top: 2px solid transparent;
             border-radius: 50%;
@@ -155,6 +169,13 @@ section {
           margin: 30px 0 10px;
           font-weight: 500;
         }
+        .input__form {
+          .submit-button {
+            font-size: 14px;
+            min-width: 100px;
+            max-width: 180px;
+          }
+        }
       }
     }
   }
@@ -191,11 +212,14 @@ section {
   .input__form {
     .submit-button {
       font-size: 14px;
+      min-width: 100px;
+      max-width: 160px;
+      padding: 8px 16px;
 
       .loading-circle {
         width: 14px;
         height: 14px;
-        margin-right: 8px;
+        margin-right: 6px;
       }
     }
   }
