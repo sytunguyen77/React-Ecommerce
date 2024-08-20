@@ -1,17 +1,17 @@
 .scroll-to-top-button {
-   position: fixed;
-   bottom: 20px;
-   right: 20px;
-   background-color: $main-color;
-   border-radius: 50%;
-   line-height: 40px;
-   width: 40px;
-   height: 40px;
-   text-align: center;
-   display: block;
-   font-size: 16px;
-   z-index: 9999;
-   color: #fff;
-   cursor: pointer;
-   border: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: $main-color;
+  border-radius: 50%;
+  line-height: 40px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  display: block;
+  font-size: 16px;
+  z-index: 9999;
+  color: #fff;
+  cursor: pointer;
+  border: none;
 }

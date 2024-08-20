@@ -6,7 +6,7 @@ import Footer from "./Footer";
 import ProductViewModal from "./ProductViewModal";
 
 // import MessengerChat from "./MessengerChat";
-import ChatEmbed from "./ChatEmbed";
+import TawkToChat from "./TawkToChat";
 
 import Routes from "../routes/Routes";
 import LoginForm from "../pages/LoginForm";
@@ -44,7 +44,7 @@ const Layout = () => {
         />
       </Switch>
       {/* <MessengerChat /> */}
-      <ChatEmbed />
+      <TawkToChat />
     </BrowserRouter>
   );
 };
