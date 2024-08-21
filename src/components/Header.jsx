@@ -16,7 +16,7 @@ const mainNav = [
     path: "/catalog",
   },
   {
-    display: "Galleries",
+    display: "Gallery",
     path: "/galleries",
   },
   {
