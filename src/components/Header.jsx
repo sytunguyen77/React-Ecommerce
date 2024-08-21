@@ -4,7 +4,6 @@ import logo from "../assets/images/Logo-4.png";
 import SearchModal from "./SearchModal";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authentication/authSlice";
-import "react-toastify/dist/ReactToastify.css";
 
 const mainNav = [
   {

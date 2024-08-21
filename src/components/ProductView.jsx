@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { addItem } from "../redux/shopping-cart/cartItemsSlide";
@@ -6,20 +6,25 @@ import { withRouter } from "react-router";
 import Button from "./Button";
 import payment from "../assets/images/payment.png";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import InnerImageZoom from "react-inner-image-zoom";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 
 const ProductView = (props) => {
   const dispatch = useDispatch();
 
-  //  Default product object if props.product is undefined
-  let product = props.product || {
-    price: 0,
-    title: "",
-    colors: [],
-    size: [],
-  };
+  // Use useMemo to create the default product object
+  const defaultProduct = useMemo(
+    () => ({
+      price: 0,
+      title: "",
+      colors: [],
+      size: [],
+    }),
+    []
+  );
+
+  // Use the default product only if props.product is undefined
+  const product = props.product || defaultProduct;
 
   //  State variables for product selection
   const [previewImg, setPreviewImg] = useState(product.image01);
